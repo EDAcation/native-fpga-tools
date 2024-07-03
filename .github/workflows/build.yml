@@ -1,0 +1,20 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        arch: [linux-x64]
+        target: [yosys]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: |
+          cd oss-cad-suite-build
+          ./builder.py build --arch=${{ matrix.arch }} --target=${{ matrix.target }}
+      - name: List files
+        run: find .
