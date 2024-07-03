@@ -10,6 +10,7 @@ jobs:
         arch: [linux-x64]
         target: [yosys]
 
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Build
