@@ -12,6 +12,10 @@ from src.base import Target
 
 Target(
 	name='yosys-full',
-	dependencies=[ 'yosys' ],
-    top_package=True
+    branding='Yosys (EDAcation)',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'yosys',
+    ]
 )
