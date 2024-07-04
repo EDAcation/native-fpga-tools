@@ -19,6 +19,6 @@ Target(
         'yosys',
     ],
     resources = [
-        'system-resources-min'
+        'system-resources'
     ]
 )
