@@ -35,3 +35,48 @@ Target(
         'system-resources'
     ]
 )
+
+#### Nextpnr-generic ####
+
+Target(
+    name='nextpnr-generic-full',
+    branding='Nextpnr-generic (EDAcation)',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'nextpnr-generic',
+    ],
+    resources = [
+        'system-resources'
+    ]
+)
+
+#### Nextpnr-ice40 ####
+
+Target(
+    name='nextpnr-ice40-full',
+    branding='Nextpnr-ice40 (EDAcation)',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'nextpnr-ice40',
+    ],
+    resources = [
+        'system-resources'
+    ]
+)
+
+#### Nextpnr-ecp5 ####
+
+Target(
+    name='nextpnr-ecp5-full',
+    branding='Nextpnr-ecp5 (EDAcation)',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'nextpnr-ecp5',
+    ],
+    resources = [
+        'system-resources'
+    ]
+)

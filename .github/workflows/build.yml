@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         arch: [linux-x64, linux-arm64, windows-x64, darwin-x64, darwin-arm64]
-        target: [yosys]
+        target: [yosys, nextpnr-generic, nextpnr-ice40, nextpnr-ecp5]
 
     runs-on: ubuntu-latest
     steps:
