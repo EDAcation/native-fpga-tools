@@ -15,6 +15,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
+      - name: Cache sources
+        uses: actions/cache@v4
+        with:
+          path: oss-cad-suite-build/_sources
+          key: cache-sources-${{ matrix.target }}
       - name: Build
         run: |
           cd oss-cad-suite-build
