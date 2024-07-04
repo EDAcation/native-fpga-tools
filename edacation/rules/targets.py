@@ -10,6 +10,19 @@ This module gets called with cwd = <gitroot>/oss-cad-suite-build, so we can impo
 
 from src.base import Target
 
+##### Yosys #####
+
+# We override Yosys here because we do not want to bundle xdot / graphviz.
+# The builder will be looking for a `yosys.sh` script in the `edacation/scripts/`
+# directory, so to fix this it is symlinked to the 'default' yosys.sh file.
+# Note that the symlink is only resolvable when `edacation/` is copied into the builder directory.
+
+Target(
+	name = 'yosys',
+	sources = ['yosys'],
+	dependencies = ['abc'],
+)
+
 Target(
     name='yosys-full',
     branding='Yosys (EDAcation)',
