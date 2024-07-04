@@ -1,1 +1,4 @@
 __pycache__/
+_builds/
+_outputs/
+_sources/

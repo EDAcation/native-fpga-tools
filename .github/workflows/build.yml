@@ -21,8 +21,6 @@ jobs:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
       - name: Build
-        run: |
-          cd oss-cad-suite-build
-          ./builder.py build --rules=default,.. --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
+        run: ./oss-cad-suite-build/builder.py build --rules=oss-cad-suite-build/default,. --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
       - name: List files
         run: find .
