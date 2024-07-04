@@ -11,11 +11,14 @@ This module gets called with cwd = <gitroot>/oss-cad-suite-build, so we can impo
 from src.base import Target
 
 Target(
-	name='yosys-full',
+    name='yosys-full',
     branding='Yosys (EDAcation)',
     top_package=True,
     readme='README.md',
 	dependencies=[
         'yosys',
+    ],
+    resources = [
+        'system-resources-min'
     ]
 )

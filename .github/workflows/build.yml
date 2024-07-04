@@ -12,6 +12,9 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
         with:
           submodules: true
@@ -20,11 +23,16 @@ jobs:
         with:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
-      - name: Inject EDAcation targets
+      - name: Inject targets
         run: cp -r edacation oss-cad-suite-build/
       - name: Build
         run: |
           cd oss-cad-suite-build/
           ./builder.py build --rules=default,edacation --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
-      - name: List files
-        run: find .
+      - name: Package
+        run: tar --transform 'flags=r;s|^.|${{ matrix.target }}|' -C oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full/${{ matrix.target }}-full -czvf ${{ matrix.target }}-${{ matrix.arch }}.tgz .
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ matrix.target }}-${{ matrix.arch }}.tgz
+          tag_name: ${{ steps.date.outputs.date }}
