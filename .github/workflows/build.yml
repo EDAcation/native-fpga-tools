@@ -20,7 +20,11 @@ jobs:
         with:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
+      - name: Inject EDAcation targets
+        run: cp -r edacation oss-cad-suite-build/
       - name: Build
-        run: ./oss-cad-suite-build/builder.py build --rules=oss-cad-suite-build/default,. --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
+        run: |
+          cd oss-cad-suite-build/
+          ./builder.py build --rules=default,edacation --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
       - name: List files
         run: find .
