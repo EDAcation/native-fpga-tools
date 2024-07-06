@@ -15,32 +15,63 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-      - name: Get current date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
         with:
           submodules: true
+
       - name: Cache sources
         uses: actions/cache@v4
         with:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
+
       - name: Cache build outputs
         uses: actions/cache@v4
         with:
           path: oss-cad-suite-build/_outputs/${{ matrix.arch }}
           key: cache-outputs-${{ matrix.target }}-${{ matrix.arch }}
+
       - name: Inject targets
         run: cp -r edacation oss-cad-suite-build/
+
       - name: Build
         run: |
           cd oss-cad-suite-build/
           ./builder.py build --rules=default,edacation --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
-      - name: Package
-        run: tar --transform 'flags=r;s|^.|${{ matrix.target }}|' -C oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full/${{ matrix.target }}-full -czvf ${{ matrix.target }}-${{ matrix.arch }}.tgz .
-      - name: Release
+
+      - name: Upload artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.target }}-${{ matrix.arch }}
+          path: oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full/${{ matrix.target }}-full/*
+
+  package:
+    runs-on: ubuntu-latest
+    depends-on: [build]
+
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      # Will download all previous artifacts and place them in individual dirs
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: _tools/
+
+      - name: List files
+        run: ls -la _tools/
+
+      - name: Package tools
+        run: ./package.py --tools=_tools/ --out=_outputs/
+
+      - name: Release tools
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ matrix.target }}-${{ matrix.arch }}.tgz
+          files: _outputs/*
           tag_name: ${{ steps.date.outputs.date }}
