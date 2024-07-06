@@ -26,6 +26,11 @@ jobs:
         with:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
+      - name: Cache build outputs
+        uses: actions/cache@v4
+        with:
+          path: oss-cad-suite-build/_outputs/${{ matrix.arch }}
+          key: cache-outputs-${{ matrix.target }}-${{ matrix.arch }}
       - name: Inject targets
         run: cp -r edacation oss-cad-suite-build/
       - name: Build
