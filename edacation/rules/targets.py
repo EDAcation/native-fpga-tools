@@ -32,7 +32,7 @@ Target(
         'yosys',
     ],
     resources = [
-        'system-resources'
+        'system-resources-min'
     ]
 )
 
@@ -47,7 +47,7 @@ Target(
         'nextpnr-generic',
     ],
     resources = [
-        'system-resources'
+        'system-resources-min'
     ]
 )
 
@@ -62,7 +62,7 @@ Target(
         'nextpnr-ice40',
     ],
     resources = [
-        'system-resources'
+        'system-resources-min'
     ]
 )
 
@@ -77,6 +77,6 @@ Target(
         'nextpnr-ecp5',
     ],
     resources = [
-        'system-resources'
+        'system-resources-min'
     ]
 )
