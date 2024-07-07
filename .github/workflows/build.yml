@@ -82,7 +82,7 @@ jobs:
         run: find  _tools/
 
       - name: Package tools
-        run: ./package.py --tools=_tools/ --out=_outputs/ --report tools.json
+        run: ./package.py --in-dir=_tools/ --out-dir=_outputs/ --report tools.json
 
       - name: Release tools
         uses: softprops/action-gh-release@v2
