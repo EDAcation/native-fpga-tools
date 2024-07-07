@@ -73,7 +73,8 @@ jobs:
         run: |
           cd _tools/
           for file in *.tgz; do
-            tar -xvzf "$file" --one-top-level
+            echo "Extracting ${file}..."
+            tar -xzf "$file" --one-top-level
             rm "$file"
           done
 
