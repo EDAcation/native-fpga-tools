@@ -39,11 +39,15 @@ jobs:
           cd oss-cad-suite-build/
           ./builder.py build --rules=default,edacation --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
 
+      # Needs to be tar'd because uploaded artifact files do not retain permissions
+      - name: Tar build output
+        run: tar -C oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full/${{ matrix.target }}-full -czvf ${{ matrix.arch }}-${{ matrix.target }}.tgz .
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.arch }}-${{ matrix.target }}
-          path: oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full/${{ matrix.target }}-full/*
+          path: ${{ matrix.arch }}-${{ matrix.target }}.tgz
 
   package:
     runs-on: ubuntu-latest
@@ -63,15 +67,26 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: _tools/
+          merge-multiple: true
+
+      - name: Extract artifacts
+        run: |
+          cd _tools/
+          for file in *.tgz; do
+            tar -xvzf "$file" --one-top-level
+            rm "$file"
+          done
 
       - name: List files
-        run: ls -la _tools/
+        run: find  _tools/
 
       - name: Package tools
-        run: ./package.py --tools=_tools/ --out=_outputs/
+        run: ./package.py --tools=_tools/ --out=_outputs/ --report tools.json
 
       - name: Release tools
         uses: softprops/action-gh-release@v2
         with:
-          files: _outputs/*
           tag_name: ${{ steps.date.outputs.date }}
+          files: |
+            _outputs/*
+            tools.json
