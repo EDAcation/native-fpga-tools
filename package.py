@@ -8,6 +8,7 @@ import re
 import sys
 import json
 import datetime
+import sys
 
 import click
 
@@ -20,6 +21,9 @@ TOOL_NAME_RE = re.compile(r'^(\w+-\w+)-(.+)$')
 CLEANUP_PATTERNS = [
     './*/python*/test',  # python unit tests
     './**/__pycache__',  # python caches
+
+    # build workflow leftovers
+    './.hash',
 
     # irrelevant build files
     './share/manifest.json',
@@ -71,6 +75,9 @@ def clean_tools(tools_dir: str) -> None:
 
 
 def create_report(tools_dir: str) -> dict:
+    sys.path += ['oss-cad-suite-build/']
+    from src.base import buildCode, targets
+
     tools: list[dict] = []
 
     for tool_name in os.listdir(tools_dir):
@@ -84,9 +91,20 @@ def create_report(tools_dir: str) -> dict:
             shutil.rmtree(tool_path)
             continue
 
+        try:
+            full_hash = open(os.path.join(tool_path, '.hash')).read().strip()
+        except FileNotFoundError:
+            print(f'[!!!] Tool "{tool_name}" does not have a valid version! REMOVING!', file=sys.stderr)
+            shutil.rmtree(tool_path)
+            continue
+
+        name = tool_match.group(2)
+        arch = tool_match.group(1)
+
         tools.append({
-            'name': tool_match.group(2),
-            'arch': tool_match.group(1),
+            'name': name,
+            'arch': arch,
+            'version': full_hash[:7],
             'download_url': DOWNLOAD_BASE_URL + f'/{tool_name}.tgz'
         })
     
@@ -121,8 +139,8 @@ def package(in_dir: str, out_dir: str, report: str | None = None):
     os.mkdir(out_dir)
 
     copy_tools(in_dir, out_dir)
-    clean_tools(out_dir)
     tools_report = create_report(out_dir)
+    clean_tools(out_dir)
     package_tools(out_dir)
 
     if report:

@@ -43,7 +43,11 @@ jobs:
 
       # Needs to be tar'd because uploaded artifact files do not retain permissions
       - name: Tar build output
-        run: tar -C oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full/${{ matrix.target }}-full -czf ${{ matrix.arch }}-${{ matrix.target }}.tgz .
+        env:
+          tooldir: oss-cad-suite-build/_outputs/${{ matrix.arch }}/${{ matrix.target }}-full
+        run: |
+          cp ${tooldir}/.hash ${tooldir}/${{ matrix.target }}-full/.hash
+          tar -C ${tooldir}/${{ matrix.target }}-full -czf ${{ matrix.arch }}-${{ matrix.target }}.tgz .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
