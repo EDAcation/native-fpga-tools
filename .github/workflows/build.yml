@@ -40,6 +40,8 @@ jobs:
       - name: Update sources
         id: sources-update
         run: |
+          shopt -s nullglob
+
           cd oss-cad-suite-build/
 
           before_update=$(for src in _sources/*; do git -C "$src" rev-parse HEAD; done)
