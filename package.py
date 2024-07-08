@@ -9,6 +9,7 @@ import sys
 import json
 import datetime
 import sys
+import threading
 
 import click
 
@@ -118,18 +119,24 @@ def create_report(tools_dir: str) -> dict:
 
 
 def package_tools(tools_dir: str) -> None:
-    for tool_dir in os.listdir(tools_dir):
-        tool_path = os.path.join(tools_dir, tool_dir)
+    def _package_tool(tool_name):
+        tool_path = os.path.join(tools_dir, tool_name)
         if not os.path.isdir(tool_path):
-            continue
+            return
 
-        out_path = os.path.join(tools_dir, f'{tool_dir}.tgz')
+        out_path = os.path.join(tools_dir, f'{tool_name}.tgz')
 
-        print(f'[{tool_dir}] Packing tgz...')
-        subprocess.run(['tar', '-C', tools_dir, '-czf', out_path, tool_dir], check=True)
-        print(f'[{tool_dir}] Deleting tool directory...')
+        print(f'[{tool_name}] Packing tgz...')
+        subprocess.run(['tar', '-C', tools_dir, '-czf', out_path, tool_name], check=True)
+        print(f'[{tool_name}] Deleting tool directory...')
         shutil.rmtree(tool_path)
+        print(f'[{tool_name}] Finished packing')
 
+    threads = [threading.Thread(target=_package_tool, args=[tool_name]) for tool_name in os.listdir(tools_dir)]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
 
 @click.command()
 @click.option('--in-dir', help='Input tool directory', required=True)
