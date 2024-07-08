@@ -121,9 +121,9 @@ def package(in_dir: str, out_dir: str, report: str | None = None):
     os.mkdir(out_dir)
 
     copy_tools(in_dir, out_dir)
-    # clean_tools(out_dir)
+    clean_tools(out_dir)
     tools_report = create_report(out_dir)
-    # package_tools(out_dir)
+    package_tools(out_dir)
 
     if report:
         print(f'Writing report to {report}')
