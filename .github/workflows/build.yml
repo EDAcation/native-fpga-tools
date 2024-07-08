@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   build:
@@ -22,19 +23,30 @@ jobs:
           submodules: true
 
       - name: Cache sources
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
 
       - name: Cache build outputs
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: oss-cad-suite-build/_outputs
           key: cache-outputs-${{ matrix.target }}-${{ matrix.arch }}
 
       - name: Inject targets
         run: cp -r edacation oss-cad-suite-build/
+
+      - name: Update sources
+        id: sources-update
+        run: |
+          cd oss-cad-suite-build/
+
+          before_update=$(for src in _sources/*; do git -C "$src" rev-parse HEAD; done)
+          ./builder.py source --rules=default,edacation --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
+          after_update=$(for src in _sources/*; do git -C "$src" rev-parse HEAD; done)
+
+          echo "did-update=$([ "$before_update" == "$after_update" ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
       - name: Build
         run: |
@@ -55,12 +67,31 @@ jobs:
           name: ${{ matrix.arch }}-${{ matrix.target }}
           path: ${{ matrix.arch }}-${{ matrix.target }}.tgz
 
+      - name: Invalidate caches
+        if: ${{ steps.sources-update.outputs.did-update }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh cache delete cache-sources-${{ matrix.target }} --confirm || true
+          gh cache delete cache-outputs-${{ matrix.target }}-${{ matrix.arch }} --confirm || true
+
+      - name: Save sources cache
+        uses: actions/cache/save@v3
+        if: ${{ steps.sources-update.outputs.did-update }}
+        with:
+          path: oss-cad-suite-build/_sources
+          key: cache-sources-${{ matrix.target }}
+
+      - name: Save build outputs cache
+        uses: actions/cache/save@v3
+        if: ${{ steps.sources-update.outputs.did-update }}
+        with:
+          path: oss-cad-suite-build/_outputs
+          key: cache-outputs-${{ matrix.target }}-${{ matrix.arch }}
+
   package:
     runs-on: ubuntu-latest
     needs: [build]
-
-    env:
-      PYTHONUNBUFFERED: "1"
 
     steps:
       - uses: actions/checkout@v4
@@ -84,6 +115,8 @@ jobs:
           done
 
       - name: Package tools
+        env:
+          PYTHONUNBUFFERED: "1"
         run: ./package.py --in-dir=_tools/ --out-dir=_outputs/ --report tools.json
 
       - name: Get release version
