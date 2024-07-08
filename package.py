@@ -51,7 +51,7 @@ def clean_tools(tools_dir: str) -> None:
         cleanup_paths = set(
             path for matches in
             (
-                glob.glob(pattern, root_dir=tool_path, recursive=True, include_hidden=True)
+                glob.glob(pattern, root_dir=tool_path, recursive=True)
                 for pattern in CLEANUP_PATTERNS
             )
             for path in matches
