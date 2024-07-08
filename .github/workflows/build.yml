@@ -72,8 +72,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh cache delete cache-sources-${{ matrix.target }} --confirm || true
-          gh cache delete cache-outputs-${{ matrix.target }}-${{ matrix.arch }} --confirm || true
+          gh cache delete cache-sources-${{ matrix.target }} || true
+          gh cache delete cache-outputs-${{ matrix.target }}-${{ matrix.arch }} || true
 
       - name: Save sources cache
         uses: actions/cache/save@v3
