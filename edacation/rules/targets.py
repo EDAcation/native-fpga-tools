@@ -25,7 +25,7 @@ Target(
 
 Target(
     name='yosys-full',
-    branding='Yosys (EDAcation)',
+    branding='Yosys',
     top_package=True,
     readme='README.md',
 	dependencies=[
@@ -40,7 +40,7 @@ Target(
 
 Target(
     name='nextpnr-generic-full',
-    branding='Nextpnr-generic (EDAcation)',
+    branding='Nextpnr (Generic)',
     top_package=True,
     readme='README.md',
 	dependencies=[
@@ -55,7 +55,7 @@ Target(
 
 Target(
     name='nextpnr-ice40-full',
-    branding='Nextpnr-ice40 (EDAcation)',
+    branding='Nextpnr (iCE40)',
     top_package=True,
     readme='README.md',
 	dependencies=[
@@ -70,7 +70,7 @@ Target(
 
 Target(
     name='nextpnr-ecp5-full',
-    branding='Nextpnr-ecp5 (EDAcation)',
+    branding='Nextpnr (ECP5)',
     top_package=True,
     readme='README.md',
 	dependencies=[
