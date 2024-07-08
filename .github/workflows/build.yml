@@ -54,10 +54,6 @@ jobs:
     needs: [build]
 
     steps:
-      - name: Get current date
-        id: date
-        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
-
       - uses: actions/checkout@v4
         with:
           submodules: true
@@ -84,10 +80,14 @@ jobs:
       - name: Package tools
         run: ./package.py --in-dir=_tools/ --out-dir=_outputs/ --report tools.json
 
+      - name: Get release version
+        id: version
+        run: echo "version=$(cat report.json | jq -r '.version')" >> $GITHUB_OUTPUT
+
       - name: Release tools
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.date.outputs.date }}
+          tag_name: ${{ steps.version.outputs.version }}
           files: |
             _outputs/*
             tools.json
