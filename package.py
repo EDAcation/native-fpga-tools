@@ -16,8 +16,6 @@ RELEASE_VER = datetime.datetime.now().strftime('%Y-%m-%d')
 REPO = 'edacation/native-tools'
 DOWNLOAD_BASE_URL = f'https://github.com/{REPO}/releases/download/{RELEASE_VER}'
 
-TOOL_NAME_RE = re.compile(r'^(\w+-\w+)-(.+)$')
-
 CLEANUP_PATTERNS = [
     './*/python*/test',  # python unit tests
     './**/__pycache__',  # python caches
@@ -85,12 +83,6 @@ def create_report(tools_dir: str) -> dict:
         if not os.path.isdir(tool_path):
             continue
 
-        tool_match = TOOL_NAME_RE.match(tool_name)
-        if not tool_match or len(tool_match.groups()) != 2:
-            print(f'[!!!] Tool "{tool_name}" could not be identified! REMOVING!', file=sys.stderr)
-            shutil.rmtree(tool_path)
-            continue
-
         try:
             full_hash = open(os.path.join(tool_path, '.hash')).read().strip()
         except FileNotFoundError:
@@ -98,11 +90,22 @@ def create_report(tools_dir: str) -> dict:
             shutil.rmtree(tool_path)
             continue
 
-        name = tool_match.group(2)
-        arch = tool_match.group(1)
+        try:
+            manifest = json.load(open(os.path.join(tool_path, 'share/manifest.json')))
+            name = manifest["version"]["branding"]
+            arch = manifest["version"]["arch"]
+            tool = manifest["version"]["product"]
+
+            if tool.endswith('-full'):
+                tool = tool[:-len('-full')]
+        except (FileNotFoundError, json.JSONDecodeError, KeyError):
+            print(f'[!!!] Tool "{tool_name}" does not have a valid manifest! REMOVING!', file=sys.stderr)
+            shutil.rmtree(tool_path)
+            continue
 
         tools.append({
-            'name': name,
+            'friendly_name': name,
+            'tool': tool,
             'arch': arch,
             'version': full_hash[:7],
             'download_url': DOWNLOAD_BASE_URL + f'/{tool_name}.tgz'
