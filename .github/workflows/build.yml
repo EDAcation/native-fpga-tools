@@ -74,9 +74,6 @@ jobs:
             rm "$file"
           done
 
-      - name: List files
-        run: find  _tools/
-
       - name: Package tools
         run: ./package.py --in-dir=_tools/ --out-dir=_outputs/ --report tools.json
 
