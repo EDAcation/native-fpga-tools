@@ -76,14 +76,14 @@ jobs:
           gh cache delete cache-outputs-${{ matrix.target }}-${{ matrix.arch }} || true
 
       - name: Save sources cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: ${{ steps.sources-update.outputs.did-update }}
         with:
           path: oss-cad-suite-build/_sources
           key: cache-sources-${{ matrix.target }}
 
       - name: Save build outputs cache
-        uses: actions/cache/save@v3
+        uses: actions/cache/save@v4
         if: ${{ steps.sources-update.outputs.did-update }}
         with:
           path: oss-cad-suite-build/_outputs
