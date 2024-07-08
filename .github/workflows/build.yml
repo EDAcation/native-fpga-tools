@@ -55,6 +55,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
 
+    env:
+      PYTHONUNBUFFERED: "1"
+
     steps:
       - uses: actions/checkout@v4
         with:
