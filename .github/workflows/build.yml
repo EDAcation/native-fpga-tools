@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir -p _caches
           tar -czf _caches/sources-${{ matrix.target }}.tgz oss-cad-suite-build/_sources/
-          tar -czf _cache/outputs-${{ matrix.target }}-${{ matrix.target }}.tgz oss-cad-suite-build/_outputs/
+          tar -czf _caches/outputs-${{ matrix.target }}-${{ matrix.target }}.tgz oss-cad-suite-build/_outputs/
 
       - name: Upload cache files
         uses: softprops/action-gh-release@v2
