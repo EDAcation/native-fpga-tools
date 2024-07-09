@@ -14,7 +14,7 @@ import threading
 import click
 
 RELEASE_VER = datetime.datetime.now().strftime('%Y-%m-%d')
-REPO = 'edacation/native-tools'
+REPO = 'edacation/native-fpga-tools'
 DOWNLOAD_BASE_URL = f'https://github.com/{REPO}/releases/download/{RELEASE_VER}'
 
 CLEANUP_PATTERNS = [
