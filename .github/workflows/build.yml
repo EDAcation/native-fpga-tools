@@ -22,33 +22,19 @@ jobs:
         with:
           submodules: true
 
-      - name: Cache sources
-        uses: actions/cache/restore@v4
-        with:
-          path: oss-cad-suite-build/_sources
-          key: cache-sources-${{ matrix.target }}
+      - name: Restore cache
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download cache --dir _caches --pattern sources-${{ matrix.target }}.tgz || true
+          gh release download cache --dir _caches --pattern outputs-${{ matrix.target }}-${{ matrix.target }}.tgz || true
 
-      - name: Cache build outputs
-        uses: actions/cache/restore@v4
-        with:
-          path: oss-cad-suite-build/_outputs
-          key: cache-outputs-${{ matrix.target }}-${{ matrix.arch }}
+          shopt -s nullglob
+          for file in _caches/*; do tar -xzf "$file"; done
+          rm -rf _caches/
 
       - name: Inject targets
         run: cp -r edacation oss-cad-suite-build/
-
-      - name: Update sources
-        id: sources-update
-        run: |
-          shopt -s nullglob
-
-          cd oss-cad-suite-build/
-
-          before_update=$(for src in _sources/*; do git -C "$src" rev-parse HEAD; done)
-          ./builder.py source --rules=default,edacation --arch=${{ matrix.arch }} --target=${{ matrix.target }}-full
-          after_update=$(for src in _sources/*; do git -C "$src" rev-parse HEAD; done)
-
-          echo "did-update=$([ "$before_update" == "$after_update" ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
       - name: Build
         run: |
@@ -69,27 +55,17 @@ jobs:
           name: ${{ matrix.arch }}-${{ matrix.target }}
           path: ${{ matrix.arch }}-${{ matrix.target }}.tgz
 
-      - name: Invalidate caches
-        if: ${{ steps.sources-update.outputs.did-update }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create cache tarballs
         run: |
-          gh cache delete cache-sources-${{ matrix.target }} || true
-          gh cache delete cache-outputs-${{ matrix.target }}-${{ matrix.arch }} || true
+          mkdir -p _caches
+          tar -czf _caches/sources-${{ matrix.target }}.tgz oss-cad-suite-build/_sources/
+          tar -czf _cache/outputs-${{ matrix.target }}-${{ matrix.target }}.tgz oss-cad-suite-build/_outputs/
 
-      - name: Save sources cache
-        uses: actions/cache/save@v4
-        if: ${{ steps.sources-update.outputs.did-update }}
+      - name: Upload cache files
+        uses: softprops/action-gh-release@v2
         with:
-          path: oss-cad-suite-build/_sources
-          key: cache-sources-${{ matrix.target }}
-
-      - name: Save build outputs cache
-        uses: actions/cache/save@v4
-        if: ${{ steps.sources-update.outputs.did-update }}
-        with:
-          path: oss-cad-suite-build/_outputs
-          key: cache-outputs-${{ matrix.target }}-${{ matrix.arch }}
+          tag_name: cache
+          files: _caches/*
 
   package:
     runs-on: ubuntu-latest
