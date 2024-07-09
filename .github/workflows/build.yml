@@ -27,7 +27,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release download cache --dir _caches --pattern sources-${{ matrix.target }}.tgz || true
-          gh release download cache --dir _caches --pattern outputs-${{ matrix.target }}-${{ matrix.target }}.tgz || true
+          gh release download cache --dir _caches --pattern outputs-${{ matrix.arch }}-${{ matrix.target }}.tgz || true
 
           shopt -s nullglob
           for file in _caches/*; do tar -xzf "$file"; done
@@ -59,7 +59,7 @@ jobs:
         run: |
           mkdir -p _caches
           tar -czf _caches/sources-${{ matrix.target }}.tgz oss-cad-suite-build/_sources/
-          tar -czf _caches/outputs-${{ matrix.target }}-${{ matrix.target }}.tgz oss-cad-suite-build/_outputs/
+          tar -czf _caches/outputs-${{ matrix.arch }}-${{ matrix.target }}.tgz oss-cad-suite-build/_outputs/
 
       - name: Upload cache files
         uses: softprops/action-gh-release@v2
