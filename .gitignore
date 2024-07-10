@@ -4,3 +4,4 @@ _outputs/
 _sources/
 _tools/
 _outputs/
+.direnv/
