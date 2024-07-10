@@ -13,9 +13,6 @@ from src.base import Target
 ##### Yosys #####
 
 # We override Yosys here because we do not want to bundle xdot / graphviz.
-# The builder will be looking for a `yosys.sh` script in the `edacation/scripts/`
-# directory, so to fix this it is symlinked to the 'default' yosys.sh file.
-# Note that the symlink is only resolvable when `edacation/` is copied into the builder directory.
 
 Target(
 	name = 'yosys',
@@ -39,6 +36,13 @@ Target(
 #### Nextpnr-generic ####
 
 Target(
+	name = 'nextpnr-generic',
+	sources = [ 'nextpnr' ],
+	dependencies = [ 'python3', 'nextpnr-bba'],
+	resources = [ 'python3' ],
+)
+
+Target(
     name='nextpnr-generic-full',
     branding='Nextpnr (Generic)',
     top_package=True,
@@ -54,6 +58,14 @@ Target(
 #### Nextpnr-ice40 ####
 
 Target(
+	name = 'nextpnr-ice40',
+	sources = [ 'nextpnr' ],
+	dependencies = [ 'python3', 'nextpnr-bba', 'icestorm-bba'],
+	resources = [ 'python3' ],
+	package = 'ice40',
+)
+
+Target(
     name='nextpnr-ice40-full',
     branding='Nextpnr (iCE40)',
     top_package=True,
@@ -67,6 +79,14 @@ Target(
 )
 
 #### Nextpnr-ecp5 ####
+
+Target(
+	name = 'nextpnr-ecp5',
+	sources = [ 'nextpnr' ],
+	dependencies = [ 'python3', 'nextpnr-bba', 'prjtrellis-bba'],
+	resources = [ 'python3' ],
+	package = 'ecp5',
+)
 
 Target(
     name='nextpnr-ecp5-full',

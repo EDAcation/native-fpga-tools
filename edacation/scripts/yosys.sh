@@ -1,1 +1,1 @@
-../../default/scripts/yosys.sh
+source ${WORKDIR}/default/scripts/yosys.sh
