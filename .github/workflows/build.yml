@@ -23,6 +23,7 @@ jobs:
           submodules: true
 
       - name: Restore cache
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -62,6 +63,7 @@ jobs:
           tar -czf _caches/${{ matrix.arch }}-${{ matrix.target }}-outputs.tgz oss-cad-suite-build/_outputs/
 
       - name: Upload cache files
+        continue-on-error: true
         uses: softprops/action-gh-release@v2
         with:
           tag_name: cache
