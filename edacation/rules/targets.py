@@ -15,9 +15,9 @@ from src.base import Target
 # We override Yosys here because we do not want to bundle xdot / graphviz.
 
 Target(
-	name = 'yosys',
-	sources = ['yosys'],
-	dependencies = ['abc'],
+    name = 'yosys',
+    sources = ['yosys'],
+    dependencies = ['abc'],
 )
 
 Target(
@@ -25,7 +25,7 @@ Target(
     branding='Yosys',
     top_package=True,
     readme='README.md',
-	dependencies=[
+    dependencies=[
         'yosys',
     ],
     resources = [
@@ -36,10 +36,10 @@ Target(
 #### Nextpnr-generic ####
 
 Target(
-	name = 'nextpnr-generic',
-	sources = [ 'nextpnr' ],
-	dependencies = [ 'python3', 'nextpnr-bba'],
-	resources = [ 'python3' ],
+    name = 'nextpnr-generic',
+    sources = [ 'nextpnr' ],
+    dependencies = [ 'python3', 'nextpnr-bba'],
+    resources = [ 'python3' ],
 )
 
 Target(
@@ -47,7 +47,7 @@ Target(
     branding='Nextpnr (Generic)',
     top_package=True,
     readme='README.md',
-	dependencies=[
+    dependencies=[
         'nextpnr-generic',
     ],
     resources = [
@@ -58,11 +58,11 @@ Target(
 #### Nextpnr-ice40 ####
 
 Target(
-	name = 'nextpnr-ice40',
-	sources = [ 'nextpnr' ],
-	dependencies = [ 'python3', 'nextpnr-bba', 'icestorm-bba'],
-	resources = [ 'python3' ],
-	package = 'ice40',
+    name = 'nextpnr-ice40',
+    sources = [ 'nextpnr' ],
+    dependencies = [ 'python3', 'nextpnr-bba', 'icestorm-bba'],
+    resources = [ 'python3' ],
+    package = 'ice40',
 )
 
 Target(
@@ -70,7 +70,7 @@ Target(
     branding='Nextpnr (iCE40)',
     top_package=True,
     readme='README.md',
-	dependencies=[
+    dependencies=[
         'nextpnr-ice40',
     ],
     resources = [
@@ -81,11 +81,11 @@ Target(
 #### Nextpnr-ecp5 ####
 
 Target(
-	name = 'nextpnr-ecp5',
-	sources = [ 'nextpnr' ],
-	dependencies = [ 'python3', 'nextpnr-bba', 'prjtrellis-bba'],
-	resources = [ 'python3' ],
-	package = 'ecp5',
+    name = 'nextpnr-ecp5',
+    sources = [ 'nextpnr' ],
+    dependencies = [ 'python3', 'nextpnr-bba', 'prjtrellis-bba'],
+    resources = [ 'python3' ],
+    package = 'ecp5',
 )
 
 Target(
@@ -93,8 +93,32 @@ Target(
     branding='Nextpnr (ECP5)',
     top_package=True,
     readme='README.md',
-	dependencies=[
+    dependencies=[
         'nextpnr-ecp5',
+    ],
+    resources = [
+        'system-resources-min'
+    ]
+)
+
+
+#### Nextpnr-nexus ####
+
+Target(
+    name = 'nextpnr-nexus',
+    sources = [ 'nextpnr' ],
+    dependencies = [ 'python3', 'nextpnr-bba', 'prjoxide-bba' ],
+    resources = [ 'python3' ],
+    package = 'nexus',
+)
+
+Target(
+    name='nextpnr-nexus-full',
+    branding='Nextpnr (Nexus)',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'nextpnr-nexus',
     ],
     resources = [
         'system-resources-min'
