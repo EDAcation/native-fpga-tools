@@ -17,6 +17,7 @@ The following tools are supported:
 - `nextpnr-ecp5`
 - `nextpnr-generic`
 - `nextpnr-ice40`
+- `nextpnr-nexus`
 - `yosys`
 
 The following platforms are supported:
