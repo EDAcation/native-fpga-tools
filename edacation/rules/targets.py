@@ -100,27 +100,3 @@ Target(
         'system-resources-min'
     ]
 )
-
-
-#### Nextpnr-nexus ####
-
-Target(
-    name = 'nextpnr-nexus',
-    sources = [ 'nextpnr' ],
-    dependencies = [ 'python3', 'nextpnr-bba', 'prjoxide-bba' ],
-    resources = [ 'python3' ],
-    package = 'nexus',
-)
-
-Target(
-    name='nextpnr-nexus-full',
-    branding='Nextpnr (Nexus)',
-    top_package=True,
-    readme='README.md',
-	dependencies=[
-        'nextpnr-nexus',
-    ],
-    resources = [
-        'system-resources-min'
-    ]
-)
