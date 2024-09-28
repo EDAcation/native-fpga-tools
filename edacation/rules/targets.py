@@ -27,6 +27,7 @@ Target(
     readme='README.md',
     dependencies=[
         'yosys',
+        'ghdl',
         'ghdl-yosys-plugin'
     ],
     resources = [
