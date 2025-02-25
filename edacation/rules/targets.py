@@ -40,7 +40,7 @@ Target(
 Target(
     name = 'nextpnr-generic',
     sources = [ 'nextpnr' ],
-    dependencies = [ 'python3', 'nextpnr-bba'],
+    dependencies = [ 'python3', 'nextpnr-bba', 'python3-native' ],
     resources = [ 'python3' ],
 )
 
@@ -62,7 +62,7 @@ Target(
 Target(
     name = 'nextpnr-ice40',
     sources = [ 'nextpnr' ],
-    dependencies = [ 'python3', 'nextpnr-bba', 'icestorm-bba'],
+    dependencies = [ 'python3', 'nextpnr-bba', 'icestorm-bba', 'python3-native' ],
     resources = [ 'python3' ],
     package = 'ice40',
 )
@@ -85,7 +85,7 @@ Target(
 Target(
     name = 'nextpnr-ecp5',
     sources = [ 'nextpnr' ],
-    dependencies = [ 'python3', 'nextpnr-bba', 'prjtrellis-bba'],
+    dependencies = [ 'python3', 'nextpnr-bba', 'prjtrellis-bba', 'python3-native' ],
     resources = [ 'python3' ],
     package = 'ecp5',
 )
