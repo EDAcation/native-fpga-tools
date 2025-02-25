@@ -23,6 +23,7 @@ The following tools are supported:
 - `nextpnr-ice40`
 - `nextpnr-nexus`
 - `yosys`
+- `iverilog`
 
 The following platforms are supported:
 

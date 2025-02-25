@@ -102,3 +102,18 @@ Target(
         'system-resources-min'
     ]
 )
+
+#### iverilog ####
+
+Target(
+	name = 'iverilog-full',
+    branding='ICARUS Verilog',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'iverilog',
+    ],
+    resources = [
+        'system-resources-min'
+    ]
+)
