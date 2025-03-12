@@ -95,10 +95,11 @@ def create_report(tools_dir: str) -> dict:
             manifest = json.load(open(os.path.join(tool_path, 'share/manifest.json')))
             name = manifest["version"]["branding"]
             arch = manifest["version"]["arch"]
-            tool = manifest["version"]["product"]
+            tool_name = manifest["version"]["product"]
+            provides = manifest["tools"][tool_name]["files"]
 
-            if tool.endswith('-full'):
-                tool = tool[:-len('-full')]
+            if tool_name.endswith('-full'):
+                tool_name = tool_name[:-len('-full')]
         except (FileNotFoundError, json.JSONDecodeError, KeyError):
             print(f'[!!!] Tool "{tool_name}" does not have a valid manifest! REMOVING!', file=sys.stderr)
             shutil.rmtree(tool_path)
@@ -106,7 +107,8 @@ def create_report(tools_dir: str) -> dict:
 
         tools.append({
             'friendly_name': name,
-            'tool': tool,
+            'tool': tool_name,
+            'provides': provides,
             'arch': arch,
             'version': full_hash[:7],
             'download_url': DOWNLOAD_BASE_URL + f'/{tool_name}.tgz'

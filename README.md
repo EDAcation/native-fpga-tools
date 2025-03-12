@@ -48,6 +48,10 @@ The response is a JSON document that looks as follows:
     {
       "friendly_name": "Nextpnr (Generic)",
       "tool": "nextpnr-generic",
+      "provides": [
+        "nextpnr-generic",
+        ...
+      ],
       "arch": "darwin-arm64",
       "version": "5cecaba",
       "download_url": "https://github.com/edacation/native-fpga-tools/releases/download/2024-07-09/darwin-arm64-nextpnr-generic.tgz"
@@ -69,7 +73,7 @@ Downloading the tool will result in a gzipped tarball (`.tgz`, `.tar.gz`) with t
   share/
 ```
 
-**Only** the `<platform>-<tool-name>/bin/<tool-name>` file is guaranteed to exist.
+**Only** the `<platform>-<tool-name>/bin/<provides>` files are guaranteed to exist.
 
 # Thanks
 
