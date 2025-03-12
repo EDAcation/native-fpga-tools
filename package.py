@@ -96,10 +96,11 @@ def create_report(tools_dir: str) -> dict:
             name = manifest["version"]["branding"]
             arch = manifest["version"]["arch"]
             tool_name = manifest["version"]["product"]
-            provides = manifest["tools"][tool_name]["files"]
 
             if tool_name.endswith('-full'):
                 tool_name = tool_name[:-len('-full')]
+            
+            provides = manifest["tools"][tool_name]["files"]
         except (FileNotFoundError, json.JSONDecodeError, KeyError):
             print(f'[!!!] Tool "{tool_name}" does not have a valid manifest! REMOVING!', file=sys.stderr)
             shutil.rmtree(tool_path)
