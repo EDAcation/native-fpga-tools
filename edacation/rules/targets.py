@@ -117,3 +117,18 @@ Target(
         'system-resources-min'
     ]
 )
+
+#### openFPGALoader ####
+
+Target(
+	name = 'openfpgaloader-full',
+    branding='openFPGALoader',
+    top_package=True,
+    readme='README.md',
+	dependencies=[
+        'openfpgaloader',
+    ],
+    resources = [
+        'system-resources-min'
+    ]
+)

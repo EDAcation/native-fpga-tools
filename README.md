@@ -24,6 +24,7 @@ The following tools are supported:
 - `nextpnr-nexus`
 - `yosys`
 - `iverilog`
+- `openfpgaloader`
 
 The following platforms are supported:
 
