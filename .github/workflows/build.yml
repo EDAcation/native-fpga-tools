@@ -22,6 +22,8 @@ jobs:
             nextpnr-ecp5,
             iverilog,
             openfpgaloader,
+            prjtrellis,
+            icestorm,
           ]
 
     runs-on: ubuntu-latest
