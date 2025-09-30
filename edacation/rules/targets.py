@@ -132,3 +132,33 @@ Target(
         'system-resources-min'
     ]
 )
+
+#### prjtrellis ####
+
+Target(
+    name = 'prjtrellis-full',
+    branding='Project Trellis',
+    top_package=True,
+    readme='README.md',
+    dependencies=[
+        'prjtrellis',
+    ],
+    resources = [
+        'system-resources-min'
+    ]
+)
+
+#### icestorm ####
+
+Target(
+    name = 'icestorm-full',
+    branding='Project IceStorm',
+    top_package=True,
+    readme='README.md',
+    dependencies=[
+        'icestorm',
+    ],
+    resources = [
+        'system-resources-min'
+    ]
+)

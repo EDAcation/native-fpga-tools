@@ -25,6 +25,8 @@ The following tools are supported:
 - `yosys`
 - `iverilog`
 - `openfpgaloader`
+- `prjtrellis`
+- `icestorm`
 
 The following platforms are supported:
 
