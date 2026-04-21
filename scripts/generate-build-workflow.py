@@ -236,12 +236,20 @@ def _replace_top_package_publisher(
 
     if not job_name.endswith("-full"):
         return job_dict
+
     short_name = job_name[: -len("-full")]
-    last_dash = short_name.find("-")
-    if last_dash <= 0:
+    arch = next(
+        (
+            candidate
+            for candidate in DEFAULT_ARCHES
+            if short_name.startswith(f"{candidate}-")
+        ),
+        None,
+    )
+    if arch is None:
         raise ValueError(f"Unexpected top-level job name format: {job_name}")
-    arch = short_name[:last_dash]
-    short_target = short_name[last_dash + 1 :]
+
+    short_target = short_name[len(arch) + 1 :]
     full_target = f"{short_target}-full"
 
     new_steps.extend(

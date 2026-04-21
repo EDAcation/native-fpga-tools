@@ -251,10 +251,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-yosys-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-yosys-full/.hash
+        tooldir: _outputs/linux-x64/yosys-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
 
-        tar -C ${tooldir}/x64-yosys-full -czf linux-x64-yosys.tgz .'
+        tar -C ${tooldir}/yosys-full -czf linux-x64-yosys.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -469,10 +469,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-nextpnr-generic-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-generic-full/.hash
+        tooldir: _outputs/linux-x64/nextpnr-generic-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-generic-full -czf linux-x64-nextpnr-generic.tgz
+        tar -C ${tooldir}/nextpnr-generic-full -czf linux-x64-nextpnr-generic.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -655,11 +655,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-nextpnr-ice40-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-ice40-full/.hash
+        tooldir: _outputs/linux-x64/nextpnr-ice40-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-ice40-full -czf linux-x64-nextpnr-ice40.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ice40-full -czf linux-x64-nextpnr-ice40.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -798,10 +797,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-nextpnr-ecp5-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-ecp5-full/.hash
+        tooldir: _outputs/linux-x64/nextpnr-ecp5-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-ecp5-full -czf linux-x64-nextpnr-ecp5.tgz .'
+        tar -C ${tooldir}/nextpnr-ecp5-full -czf linux-x64-nextpnr-ecp5.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -876,10 +875,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-iverilog-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-iverilog-full/.hash
+        tooldir: _outputs/linux-x64/iverilog-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
 
-        tar -C ${tooldir}/x64-iverilog-full -czf linux-x64-iverilog.tgz .'
+        tar -C ${tooldir}/iverilog-full -czf linux-x64-iverilog.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -954,11 +953,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-openfpgaloader-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-openfpgaloader-full/.hash
+        tooldir: _outputs/linux-x64/openfpgaloader-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
 
-        tar -C ${tooldir}/x64-openfpgaloader-full -czf linux-x64-openfpgaloader.tgz
-        .'
+        tar -C ${tooldir}/openfpgaloader-full -czf linux-x64-openfpgaloader.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1033,10 +1031,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-prjtrellis-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-prjtrellis-full/.hash
+        tooldir: _outputs/linux-x64/prjtrellis-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
 
-        tar -C ${tooldir}/x64-prjtrellis-full -czf linux-x64-prjtrellis.tgz .'
+        tar -C ${tooldir}/prjtrellis-full -czf linux-x64-prjtrellis.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1073,10 +1071,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/x64-icestorm-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-icestorm-full/.hash
+        tooldir: _outputs/linux-x64/icestorm-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
 
-        tar -C ${tooldir}/x64-icestorm-full -czf linux-x64-icestorm.tgz .'
+        tar -C ${tooldir}/icestorm-full -czf linux-x64-icestorm.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1194,10 +1192,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-yosys-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-yosys-full/.hash
+        tooldir: _outputs/linux-arm64/yosys-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
 
-        tar -C ${tooldir}/arm64-yosys-full -czf linux-arm64-yosys.tgz .'
+        tar -C ${tooldir}/yosys-full -czf linux-arm64-yosys.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1332,10 +1330,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-nextpnr-generic-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-nextpnr-generic-full/.hash
+        tooldir: _outputs/linux-arm64/nextpnr-generic-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
 
-        tar -C ${tooldir}/arm64-nextpnr-generic-full -czf linux-arm64-nextpnr-generic.tgz
+        tar -C ${tooldir}/nextpnr-generic-full -czf linux-arm64-nextpnr-generic.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -1433,11 +1431,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-nextpnr-ice40-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-nextpnr-ice40-full/.hash
+        tooldir: _outputs/linux-arm64/nextpnr-ice40-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
 
-        tar -C ${tooldir}/arm64-nextpnr-ice40-full -czf linux-arm64-nextpnr-ice40.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ice40-full -czf linux-arm64-nextpnr-ice40.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1534,11 +1531,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-nextpnr-ecp5-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-nextpnr-ecp5-full/.hash
+        tooldir: _outputs/linux-arm64/nextpnr-ecp5-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
 
-        tar -C ${tooldir}/arm64-nextpnr-ecp5-full -czf linux-arm64-nextpnr-ecp5.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ecp5-full -czf linux-arm64-nextpnr-ecp5.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1613,10 +1609,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-iverilog-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-iverilog-full/.hash
+        tooldir: _outputs/linux-arm64/iverilog-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
 
-        tar -C ${tooldir}/arm64-iverilog-full -czf linux-arm64-iverilog.tgz .'
+        tar -C ${tooldir}/iverilog-full -czf linux-arm64-iverilog.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1691,10 +1687,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-openfpgaloader-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-openfpgaloader-full/.hash
+        tooldir: _outputs/linux-arm64/openfpgaloader-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
 
-        tar -C ${tooldir}/arm64-openfpgaloader-full -czf linux-arm64-openfpgaloader.tgz
+        tar -C ${tooldir}/openfpgaloader-full -czf linux-arm64-openfpgaloader.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -1770,10 +1766,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-prjtrellis-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-prjtrellis-full/.hash
+        tooldir: _outputs/linux-arm64/prjtrellis-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
 
-        tar -C ${tooldir}/arm64-prjtrellis-full -czf linux-arm64-prjtrellis.tgz .'
+        tar -C ${tooldir}/prjtrellis-full -czf linux-arm64-prjtrellis.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1848,10 +1844,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/linux/arm64-icestorm-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-icestorm-full/.hash
+        tooldir: _outputs/linux-arm64/icestorm-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
 
-        tar -C ${tooldir}/arm64-icestorm-full -czf linux-arm64-icestorm.tgz .'
+        tar -C ${tooldir}/icestorm-full -czf linux-arm64-icestorm.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -1969,10 +1965,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-yosys-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-yosys-full/.hash
+        tooldir: _outputs/windows-x64/yosys-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
 
-        tar -C ${tooldir}/x64-yosys-full -czf windows-x64-yosys.tgz .'
+        tar -C ${tooldir}/yosys-full -czf windows-x64-yosys.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2107,10 +2103,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-nextpnr-generic-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-generic-full/.hash
+        tooldir: _outputs/windows-x64/nextpnr-generic-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-generic-full -czf windows-x64-nextpnr-generic.tgz
+        tar -C ${tooldir}/nextpnr-generic-full -czf windows-x64-nextpnr-generic.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -2208,11 +2204,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-nextpnr-ice40-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-ice40-full/.hash
+        tooldir: _outputs/windows-x64/nextpnr-ice40-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-ice40-full -czf windows-x64-nextpnr-ice40.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ice40-full -czf windows-x64-nextpnr-ice40.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2309,11 +2304,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-nextpnr-ecp5-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-ecp5-full/.hash
+        tooldir: _outputs/windows-x64/nextpnr-ecp5-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-ecp5-full -czf windows-x64-nextpnr-ecp5.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ecp5-full -czf windows-x64-nextpnr-ecp5.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2388,10 +2382,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-iverilog-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-iverilog-full/.hash
+        tooldir: _outputs/windows-x64/iverilog-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
 
-        tar -C ${tooldir}/x64-iverilog-full -czf windows-x64-iverilog.tgz .'
+        tar -C ${tooldir}/iverilog-full -czf windows-x64-iverilog.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2466,10 +2460,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-openfpgaloader-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-openfpgaloader-full/.hash
+        tooldir: _outputs/windows-x64/openfpgaloader-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
 
-        tar -C ${tooldir}/x64-openfpgaloader-full -czf windows-x64-openfpgaloader.tgz
+        tar -C ${tooldir}/openfpgaloader-full -czf windows-x64-openfpgaloader.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -2545,10 +2539,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-prjtrellis-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-prjtrellis-full/.hash
+        tooldir: _outputs/windows-x64/prjtrellis-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
 
-        tar -C ${tooldir}/x64-prjtrellis-full -czf windows-x64-prjtrellis.tgz .'
+        tar -C ${tooldir}/prjtrellis-full -czf windows-x64-prjtrellis.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2623,10 +2617,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/windows/x64-icestorm-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-icestorm-full/.hash
+        tooldir: _outputs/windows-x64/icestorm-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
 
-        tar -C ${tooldir}/x64-icestorm-full -czf windows-x64-icestorm.tgz .'
+        tar -C ${tooldir}/icestorm-full -czf windows-x64-icestorm.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2744,10 +2738,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-yosys-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-yosys-full/.hash
+        tooldir: _outputs/darwin-x64/yosys-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
 
-        tar -C ${tooldir}/x64-yosys-full -czf darwin-x64-yosys.tgz .'
+        tar -C ${tooldir}/yosys-full -czf darwin-x64-yosys.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -2882,10 +2876,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-nextpnr-generic-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-generic-full/.hash
+        tooldir: _outputs/darwin-x64/nextpnr-generic-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-generic-full -czf darwin-x64-nextpnr-generic.tgz
+        tar -C ${tooldir}/nextpnr-generic-full -czf darwin-x64-nextpnr-generic.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -2983,11 +2977,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-nextpnr-ice40-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-ice40-full/.hash
+        tooldir: _outputs/darwin-x64/nextpnr-ice40-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-ice40-full -czf darwin-x64-nextpnr-ice40.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ice40-full -czf darwin-x64-nextpnr-ice40.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3084,10 +3077,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-nextpnr-ecp5-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-nextpnr-ecp5-full/.hash
+        tooldir: _outputs/darwin-x64/nextpnr-ecp5-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
 
-        tar -C ${tooldir}/x64-nextpnr-ecp5-full -czf darwin-x64-nextpnr-ecp5.tgz .'
+        tar -C ${tooldir}/nextpnr-ecp5-full -czf darwin-x64-nextpnr-ecp5.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3162,10 +3155,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-iverilog-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-iverilog-full/.hash
+        tooldir: _outputs/darwin-x64/iverilog-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
 
-        tar -C ${tooldir}/x64-iverilog-full -czf darwin-x64-iverilog.tgz .'
+        tar -C ${tooldir}/iverilog-full -czf darwin-x64-iverilog.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3240,11 +3233,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-openfpgaloader-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-openfpgaloader-full/.hash
+        tooldir: _outputs/darwin-x64/openfpgaloader-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
 
-        tar -C ${tooldir}/x64-openfpgaloader-full -czf darwin-x64-openfpgaloader.tgz
-        .'
+        tar -C ${tooldir}/openfpgaloader-full -czf darwin-x64-openfpgaloader.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3319,10 +3311,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-prjtrellis-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-prjtrellis-full/.hash
+        tooldir: _outputs/darwin-x64/prjtrellis-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
 
-        tar -C ${tooldir}/x64-prjtrellis-full -czf darwin-x64-prjtrellis.tgz .'
+        tar -C ${tooldir}/prjtrellis-full -czf darwin-x64-prjtrellis.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3397,10 +3389,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/x64-icestorm-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/x64-icestorm-full/.hash
+        tooldir: _outputs/darwin-x64/icestorm-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
 
-        tar -C ${tooldir}/x64-icestorm-full -czf darwin-x64-icestorm.tgz .'
+        tar -C ${tooldir}/icestorm-full -czf darwin-x64-icestorm.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3615,10 +3607,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-yosys-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-yosys-full/.hash
+        tooldir: _outputs/darwin-arm64/yosys-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
 
-        tar -C ${tooldir}/arm64-yosys-full -czf darwin-arm64-yosys.tgz .'
+        tar -C ${tooldir}/yosys-full -czf darwin-arm64-yosys.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3753,10 +3745,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-nextpnr-generic-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-nextpnr-generic-full/.hash
+        tooldir: _outputs/darwin-arm64/nextpnr-generic-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
 
-        tar -C ${tooldir}/arm64-nextpnr-generic-full -czf darwin-arm64-nextpnr-generic.tgz
+        tar -C ${tooldir}/nextpnr-generic-full -czf darwin-arm64-nextpnr-generic.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -3854,11 +3846,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-nextpnr-ice40-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-nextpnr-ice40-full/.hash
+        tooldir: _outputs/darwin-arm64/nextpnr-ice40-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
 
-        tar -C ${tooldir}/arm64-nextpnr-ice40-full -czf darwin-arm64-nextpnr-ice40.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ice40-full -czf darwin-arm64-nextpnr-ice40.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -3955,11 +3946,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-nextpnr-ecp5-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-nextpnr-ecp5-full/.hash
+        tooldir: _outputs/darwin-arm64/nextpnr-ecp5-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
 
-        tar -C ${tooldir}/arm64-nextpnr-ecp5-full -czf darwin-arm64-nextpnr-ecp5.tgz
-        .'
+        tar -C ${tooldir}/nextpnr-ecp5-full -czf darwin-arm64-nextpnr-ecp5.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -4034,10 +4024,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-iverilog-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-iverilog-full/.hash
+        tooldir: _outputs/darwin-arm64/iverilog-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
 
-        tar -C ${tooldir}/arm64-iverilog-full -czf darwin-arm64-iverilog.tgz .'
+        tar -C ${tooldir}/iverilog-full -czf darwin-arm64-iverilog.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -4112,10 +4102,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-openfpgaloader-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-openfpgaloader-full/.hash
+        tooldir: _outputs/darwin-arm64/openfpgaloader-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
 
-        tar -C ${tooldir}/arm64-openfpgaloader-full -czf darwin-arm64-openfpgaloader.tgz
+        tar -C ${tooldir}/openfpgaloader-full -czf darwin-arm64-openfpgaloader.tgz
         .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
@@ -4191,10 +4181,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-prjtrellis-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-prjtrellis-full/.hash
+        tooldir: _outputs/darwin-arm64/prjtrellis-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
 
-        tar -C ${tooldir}/arm64-prjtrellis-full -czf darwin-arm64-prjtrellis.tgz .'
+        tar -C ${tooldir}/prjtrellis-full -czf darwin-arm64-prjtrellis.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
@@ -4269,10 +4259,10 @@ jobs:
         --single
     - name: Tar build output
       env:
-        tooldir: _outputs/darwin/arm64-icestorm-full
-      run: 'cp ${tooldir}/.hash ${tooldir}/arm64-icestorm-full/.hash
+        tooldir: _outputs/darwin-arm64/icestorm-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
 
-        tar -C ${tooldir}/arm64-icestorm-full -czf darwin-arm64-icestorm.tgz .'
+        tar -C ${tooldir}/icestorm-full -czf darwin-arm64-icestorm.tgz .'
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
