@@ -311,16 +311,27 @@ def _adapt_upstream_job(
 
     steps.insert(insertion_index, copy.deepcopy(inject_targets_step))
 
+    job_dict["defaults"] = {
+        "run": {
+            "working-directory": "oss-cad-suite-build",
+        }
+    }
+
     for step_obj in steps:
         if not isinstance(step_obj, dict):
             continue
         step = cast(dict[object, object], step_obj)
 
-        run_cmd = step.get("run")
-        if isinstance(run_cmd, str):
-            step["working-directory"] = "oss-cad-suite-build"
-
         uses = step.get("uses")
+        if isinstance(uses, str) and uses.startswith("actions/checkout@"):
+            with_obj_checkout = step.get("with")
+            if isinstance(with_obj_checkout, dict):
+                with_checkout = cast(dict[object, object], with_obj_checkout)
+            else:
+                with_checkout = {}
+            with_checkout["submodules"] = True
+            step["with"] = with_checkout
+
         with_obj = step.get("with")
         if (
             isinstance(uses, str)
@@ -361,7 +372,6 @@ def _replace_top_package_publisher(
         [
             {
                 "name": "Tar build output",
-                "working-directory": "oss-cad-suite-build",
                 "env": {
                     "tooldir": f"_outputs/{job.arch}/{job.target}",
                 },
