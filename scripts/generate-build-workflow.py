@@ -7,9 +7,6 @@ import copy
 import os
 import re
 import subprocess
-from collections import defaultdict, deque
-from collections.abc import Iterable
-from dataclasses import dataclass, field
 from pathlib import Path
 from typing import cast
 
@@ -35,17 +32,6 @@ DEFAULT_TARGETS = [
 ]
 
 
-@dataclass
-class Job:
-    name: str
-    arch: str
-    target: str
-    is_top_package: bool
-    needs: set[str] = field(default_factory=set)
-    download_deps: set[str] = field(default_factory=set)
-    raw_job: dict[str, object] = field(default_factory=dict)
-
-
 class Args(argparse.Namespace):
     repo_root: str = "."
     output: str = ".github/workflows/build.yml"
@@ -63,20 +49,8 @@ def _extract_yaml_document(text: str) -> str:
     raise ValueError("No YAML document found in builder output")
 
 
-def _yaml_safe_load(text: str) -> object:
-    return cast(object, yaml.safe_load(text))
-
-
-def _parse_job_name(name: str, arches: Iterable[str]) -> tuple[str, str]:
-    for arch in arches:
-        prefix = f"{arch}-"
-        if name.startswith(prefix):
-            return arch, name[len(prefix) :]
-    raise ValueError(f"Cannot infer architecture from job name: {name}")
-
-
-def parse_generated_ci(yaml_text: str, arches: list[str]) -> dict[str, Job]:
-    loaded_obj = _yaml_safe_load(_extract_yaml_document(yaml_text))
+def parse_generated_ci(yaml_text: str) -> dict[str, dict[str, object]]:
+    loaded_obj = cast(object, yaml.safe_load(_extract_yaml_document(yaml_text)))
     if not isinstance(loaded_obj, dict):
         raise ValueError("Generated YAML does not contain a jobs section")
 
@@ -89,70 +63,15 @@ def parse_generated_ci(yaml_text: str, arches: list[str]) -> dict[str, Job]:
         raise ValueError("Generated YAML jobs section is malformed")
     jobs_raw_dict = cast(dict[object, object], jobs_raw_obj)
 
-    job_line_re = re.compile(
-        r"./builder.py build --arch=([^ ]+) --target=([^ ]+) --single( --tar)?"
-    )
-    jobs: dict[str, Job] = {}
+    jobs: dict[str, dict[str, object]] = {}
 
     for name_obj, job_obj in jobs_raw_dict.items():
         if not isinstance(name_obj, str):
             continue
         if not isinstance(job_obj, dict):
             continue
-        name = name_obj
-        job_raw = cast(dict[object, object], job_obj)
-
-        arch, target = _parse_job_name(name, arches)
-
-        needs: set[str] = set()
-        download_deps: set[str] = set()
-        run_arch: str | None = None
-        run_target: str | None = None
-        is_top_package: bool | None = None
-
-        raw_needs = job_raw.get("needs")
-        if isinstance(raw_needs, str):
-            needs.add(raw_needs)
-        elif isinstance(raw_needs, list):
-            for need in cast(list[object], raw_needs):
-                needs.add(str(need))
-
-        steps_obj = job_raw.get("steps", [])
-        if isinstance(steps_obj, list):
-            for step_obj in cast(list[object], steps_obj):
-                if not isinstance(step_obj, dict):
-                    continue
-                step = cast(dict[object, object], step_obj)
-
-                step_name = step.get("name")
-                if isinstance(step_name, str) and step_name.startswith("Download "):
-                    download_deps.add(step_name[len("Download ") :].strip())
-
-                run_cmd = step.get("run")
-                if isinstance(run_cmd, str) and "./builder.py build" in run_cmd:
-                    m = job_line_re.search(run_cmd)
-                    if m:
-                        run_arch = m.group(1)
-                        run_target = m.group(2)
-                        is_top_package = m.group(3) is None
-
-        if run_arch is None or run_target is None or is_top_package is None:
-            raise ValueError(f"Failed to parse build command from job '{name}'")
-
-        if run_arch != arch or run_target != target:
-            raise ValueError(
-                f"Parsed command does not match job name for '{name}': arch={run_arch}, target={run_target}"
-            )
-
-        jobs[name] = Job(
-            name=name,
-            arch=arch,
-            target=target,
-            is_top_package=is_top_package,
-            needs=needs,
-            download_deps=download_deps,
-            raw_job=cast(dict[str, object], copy.deepcopy(job_raw)),
-        )
+        job_obj_dict = cast(dict[object, object], job_obj)
+        jobs[name_obj] = cast(dict[str, object], copy.deepcopy(job_obj_dict))
 
     return jobs
 
@@ -177,89 +96,17 @@ def run_ci_generation(
     return completed.stdout
 
 
-def merge_jobs(job_sets: Iterable[dict[str, Job]]) -> dict[str, Job]:
-    merged: dict[str, Job] = {}
+def merge_jobs(
+    job_sets: list[dict[str, dict[str, object]]],
+) -> dict[str, dict[str, object]]:
+    merged: dict[str, dict[str, object]] = {}
 
     for jobs in job_sets:
-        for name, job in jobs.items():
+        for name, job_dict in jobs.items():
             if name not in merged:
-                merged[name] = Job(
-                    name=job.name,
-                    arch=job.arch,
-                    target=job.target,
-                    is_top_package=job.is_top_package,
-                    needs=set(job.needs),
-                    download_deps=set(job.download_deps),
-                    raw_job=copy.deepcopy(job.raw_job),
-                )
-                continue
-
-            current = merged[name]
-            if (
-                current.arch != job.arch
-                or current.target != job.target
-                or current.is_top_package != job.is_top_package
-            ):
-                raise ValueError(f"Conflicting definitions for job '{name}'")
-
-            current.needs.update(job.needs)
-            current.download_deps.update(job.download_deps)
-
-            if current.raw_job != job.raw_job:
-                raise ValueError(
-                    f"Conflicting upstream job bodies for '{name}' across generated inputs"
-                )
+                merged[name] = copy.deepcopy(job_dict)
 
     return merged
-
-
-def compute_required_jobs(all_jobs: dict[str, Job], roots: list[str]) -> set[str]:
-    required: set[str] = set()
-    stack = list(roots)
-
-    while stack:
-        name = stack.pop()
-        if name in required:
-            continue
-        if name not in all_jobs:
-            raise ValueError(f"Required job '{name}' is missing from merged CI graph")
-
-        required.add(name)
-        job = all_jobs[name]
-
-        for dep in sorted(job.needs | job.download_deps):
-            if dep in all_jobs and dep not in required:
-                stack.append(dep)
-
-    return required
-
-
-def topological_order(jobs: dict[str, Job], required: set[str]) -> list[str]:
-    indegree: dict[str, int] = {name: 0 for name in required}
-    graph: dict[str, set[str]] = defaultdict(set)
-
-    for name in required:
-        deps = (jobs[name].needs | jobs[name].download_deps) & required
-        indegree[name] = len(deps)
-        for dep in deps:
-            graph[dep].add(name)
-
-    queue = deque(sorted([name for name, deg in indegree.items() if deg == 0]))
-    ordered: list[str] = []
-
-    while queue:
-        node = queue.popleft()
-        ordered.append(node)
-        for nxt in sorted(graph[node]):
-            indegree[nxt] -= 1
-            if indegree[nxt] == 0:
-                queue.append(nxt)
-
-    if len(ordered) != len(required):
-        missing = sorted(required - set(ordered))
-        raise ValueError(f"Dependency cycle detected across jobs: {missing}")
-
-    return ordered
 
 
 def _prefix_hashfiles_paths(condition: str) -> str:
@@ -277,6 +124,7 @@ def _prefix_hashfiles_paths(condition: str) -> str:
 def _transform_release_paths(job_dict: dict[object, object]) -> None:
     if_expr = job_dict.get("if")
     if isinstance(if_expr, str):
+        # Transform: make hashFiles paths match the workspace layout.
         job_dict["if"] = _prefix_hashfiles_paths(if_expr)
 
     with_obj = job_dict.get("with")
@@ -286,17 +134,18 @@ def _transform_release_paths(job_dict: dict[object, object]) -> None:
 
     artifacts = with_dict.get("artifacts")
     if isinstance(artifacts, str) and not artifacts.startswith("oss-cad-suite-build/"):
+        # Transform: release-action artifact path is relative to repo root in our workflow.
         with_dict["artifacts"] = f"oss-cad-suite-build/{artifacts}"
 
 
 def _adapt_upstream_job(
-    job: Job, inject_targets_step: dict[object, object]
+    job_dict: dict[str, object], inject_targets_step: dict[object, object]
 ) -> dict[str, object]:
-    job_dict = copy.deepcopy(job.raw_job)
+    job_dict = copy.deepcopy(job_dict)
 
     steps_obj = job_dict.get("steps")
     if not isinstance(steps_obj, list):
-        raise ValueError(f"Upstream job '{job.name}' has malformed steps")
+        raise ValueError("Upstream job has malformed steps")
     steps = cast(list[object], steps_obj)
 
     insertion_index = 1
@@ -311,8 +160,10 @@ def _adapt_upstream_job(
             checkout_index = i
             break
 
+    # Transform: inject local rules into upstream builder tree.
     steps.insert(insertion_index, copy.deepcopy(inject_targets_step))
 
+    # Transform: run upstream shell steps from the builder submodule directory.
     job_dict["defaults"] = {
         "run": {
             "working-directory": "oss-cad-suite-build",
@@ -331,6 +182,7 @@ def _adapt_upstream_job(
                 with_checkout = cast(dict[object, object], with_obj_checkout)
             else:
                 with_checkout = {}
+            # Transform: ensure submodule checkout so builder.py and sources are present.
             with_checkout["submodules"] = True
             step["with"] = with_checkout
 
@@ -345,9 +197,11 @@ def _adapt_upstream_job(
             if isinstance(cache_path, str) and not cache_path.startswith(
                 "oss-cad-suite-build/"
             ):
+                # Transform: cache path must point into submodule working tree.
                 with_dict["path"] = f"oss-cad-suite-build/{cache_path}"
 
         if isinstance(uses, str) and uses.startswith("ncipollo/release-action@"):
+            # Transform: keep upstream release cache flow but normalize paths.
             _transform_release_paths(step)
 
     if checkout_index > 0:
@@ -357,18 +211,18 @@ def _adapt_upstream_job(
             step = cast(dict[object, object], step_obj)
             run_cmd = step.get("run")
             if isinstance(run_cmd, str):
-                # Pre-checkout run steps cannot use oss-cad-suite-build.
+                # Transform: pre-checkout run steps cannot use builder working directory.
                 step["working-directory"] = "."
 
     return job_dict
 
 
 def _replace_top_package_publisher(
-    job_dict: dict[str, object], job: Job
+    job_dict: dict[str, object], job_name: str
 ) -> dict[str, object]:
     steps_obj = job_dict.get("steps")
     if not isinstance(steps_obj, list):
-        raise ValueError(f"Top package job '{job.name}' has malformed steps")
+        raise ValueError(f"Top package job '{job_name}' has malformed steps")
 
     new_steps: list[object] = []
     for step_obj in cast(list[object], steps_obj):
@@ -376,40 +230,50 @@ def _replace_top_package_publisher(
             step = cast(dict[object, object], step_obj)
             uses = step.get("uses")
             if isinstance(uses, str) and uses.startswith("ncipollo/release-action@"):
+                # Transform: top-level publish is centralized in final package job.
                 continue
         new_steps.append(cast(object, step_obj))
 
-    short_target = job.target.removesuffix("-full")
+    if not job_name.endswith("-full"):
+        return job_dict
+    short_name = job_name[: -len("-full")]
+    last_dash = short_name.find("-")
+    if last_dash <= 0:
+        raise ValueError(f"Unexpected top-level job name format: {job_name}")
+    arch = short_name[:last_dash]
+    short_target = short_name[last_dash + 1 :]
+    full_target = f"{short_target}-full"
+
     new_steps.extend(
         [
             {
                 "name": "Tar build output",
                 "env": {
-                    "tooldir": f"_outputs/{job.arch}/{job.target}",
+                    "tooldir": f"_outputs/{arch}/{full_target}",
                 },
                 "run": (
-                    f"cp ${{tooldir}}/.hash ${{tooldir}}/{job.target}/.hash\n"
-                    f"tar -C ${{tooldir}}/{job.target} -czf {job.arch}-{short_target}.tgz ."
+                    f"cp ${{tooldir}}/.hash ${{tooldir}}/{full_target}/.hash\n"
+                    f"tar -C ${{tooldir}}/{full_target} -czf {arch}-{short_target}.tgz ."
                 ),
             },
             {
                 "name": "Upload artifact",
                 "uses": "actions/upload-artifact@v4",
                 "with": {
-                    "name": job.name,
-                    "path": f"oss-cad-suite-build/{job.arch}-{short_target}.tgz",
+                    "name": job_name,
+                    "path": f"oss-cad-suite-build/{arch}-{short_target}.tgz",
                 },
             },
         ]
     )
+    # Transform: replace upstream release upload with artifact upload for package fan-in.
     job_dict["steps"] = new_steps
 
     return job_dict
 
 
 def render_workflow(
-    jobs: dict[str, Job],
-    ordered_jobs: list[str],
+    jobs: dict[str, dict[str, object]],
     full_roots: list[str],
     cron: str,
 ) -> str:
@@ -435,13 +299,12 @@ def render_workflow(
         "run": "cp -r ../edacation .",
     }
 
-    for job_name in ordered_jobs:
-        job = jobs[job_name]
-        job_dict = _adapt_upstream_job(job, inject_targets_step)
-        if job.is_top_package:
-            job_dict = _replace_top_package_publisher(job_dict, job)
+    for job_name in jobs:
+        job_dict = _adapt_upstream_job(jobs[job_name], inject_targets_step)
+        if job_name.endswith("-full"):
+            job_dict = _replace_top_package_publisher(job_dict, job_name)
 
-        jobs_section[job.name] = job_dict
+        jobs_section[job_name] = job_dict
 
     jobs_section["package"] = {
         "runs-on": "ubuntu-latest",
@@ -547,27 +410,30 @@ def main() -> None:
     if not arches or not targets:
         raise ValueError("At least one architecture and one target must be specified")
 
-    generated_job_sets: list[dict[str, Job]] = []
+    generated_job_sets: list[dict[str, dict[str, object]]] = []
     for arch in arches:
         for target in targets:
             top_target = f"{target}-full"
             yaml_text = run_ci_generation(
                 builder_dir, arch, top_target, str(args.rules)
             )
-            generated_job_sets.append(parse_generated_ci(yaml_text, arches))
+            generated_job_sets.append(parse_generated_ci(yaml_text))
 
     merged_jobs = merge_jobs(generated_job_sets)
     full_roots = [f"{arch}-{target}-full" for arch in arches for target in targets]
 
-    required = compute_required_jobs(merged_jobs, full_roots)
-    ordered = topological_order(merged_jobs, required)
+    full_roots_existing = [name for name in full_roots if name in merged_jobs]
+    if not full_roots_existing:
+        raise ValueError("No top-level '-full' jobs found in merged upstream CI output")
 
-    workflow_text = render_workflow(merged_jobs, ordered, full_roots, str(args.cron))
+    workflow_text = render_workflow(merged_jobs, full_roots_existing, str(args.cron))
 
     os.makedirs(output_path.parent, exist_ok=True)
     _ = output_path.write_text(workflow_text)
 
-    print(f"Generated {output_path} with {len(ordered)} build jobs + package job")
+    print(
+        f"Generated {output_path} with {len(merged_jobs)} upstream jobs + package job"
+    )
 
 
 if __name__ == "__main__":
