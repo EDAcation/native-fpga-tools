@@ -14,6 +14,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -26,8 +27,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=ghdl --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-ghdl.tgz') != ''
       with:
@@ -39,9 +42,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-ghdl.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-icestorm:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -49,6 +49,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -61,8 +62,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=icestorm --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-icestorm.tgz') != ''
       with:
@@ -74,9 +77,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-icestorm.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -84,6 +84,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -96,8 +97,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=iverilog --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-iverilog.tgz') != ''
       with:
@@ -109,9 +112,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-iverilog.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-openfpgaloader:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -119,6 +119,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -131,9 +132,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=openfpgaloader --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-openfpgaloader.tgz') != ''
       with:
@@ -145,9 +148,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-openfpgaloader.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-prjtrellis:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -155,6 +155,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -167,8 +168,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=prjtrellis --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-prjtrellis.tgz') != ''
       with:
@@ -180,9 +183,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-prjtrellis.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-system-resources-min:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -190,6 +190,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -202,9 +203,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=system-resources-min --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-system-resources-min.tgz') !=
         ''
@@ -217,9 +220,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-system-resources-min.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-icestorm:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -227,6 +227,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -239,8 +240,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=icestorm --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-icestorm.tgz') != ''
       with:
@@ -252,9 +255,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-icestorm.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -262,6 +262,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -274,8 +275,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=iverilog --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-iverilog.tgz') != ''
       with:
@@ -287,9 +290,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-iverilog.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-openfpgaloader:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -297,6 +297,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -309,8 +310,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=openfpgaloader --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-openfpgaloader.tgz') != ''
       with:
@@ -322,9 +325,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-openfpgaloader.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-prjtrellis:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -332,6 +332,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -344,8 +345,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=prjtrellis --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-prjtrellis.tgz') != ''
       with:
@@ -357,9 +360,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-prjtrellis.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-system-resources-min:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -367,6 +367,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -379,9 +380,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=system-resources-min --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-system-resources-min.tgz') !=
         ''
@@ -394,9 +397,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-system-resources-min.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-icestorm:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -404,6 +404,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -416,8 +417,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=icestorm --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-icestorm.tgz') != ''
       with:
@@ -429,9 +432,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-icestorm.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -439,6 +439,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -451,8 +452,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=iverilog --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-iverilog.tgz') != ''
       with:
@@ -464,9 +467,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-iverilog.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-openfpgaloader:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -474,6 +474,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -486,9 +487,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=openfpgaloader --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-openfpgaloader.tgz') != ''
       with:
@@ -500,9 +503,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-openfpgaloader.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-prjtrellis:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -510,6 +510,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -522,8 +523,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=prjtrellis --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-prjtrellis.tgz') != ''
       with:
@@ -535,9 +538,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-prjtrellis.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-system-resources-min:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -545,6 +545,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -557,9 +558,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=system-resources-min --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-system-resources-min.tgz') !=
         ''
@@ -572,9 +575,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-system-resources-min.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-abc:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -582,6 +582,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -594,8 +595,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=abc --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-abc.tgz') != ''
       with:
@@ -607,9 +610,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-abc.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-ghdl:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -617,6 +617,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -629,8 +630,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=ghdl --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-ghdl.tgz') != ''
       with:
@@ -642,9 +645,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-ghdl.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-icestorm:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -652,6 +652,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -664,8 +665,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=icestorm --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-icestorm.tgz') != ''
       with:
@@ -677,9 +680,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-icestorm.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -687,6 +687,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -699,8 +700,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=iverilog --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-iverilog.tgz') != ''
       with:
@@ -712,9 +715,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-iverilog.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-bba:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -722,6 +722,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -734,8 +735,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-bba --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-bba.tgz') != ''
       with:
@@ -747,9 +750,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-nextpnr-bba.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-openfpgaloader:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -757,6 +757,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -769,8 +770,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=openfpgaloader --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-openfpgaloader.tgz') != ''
       with:
@@ -782,9 +785,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-openfpgaloader.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-prjtrellis:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -792,6 +792,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -804,8 +805,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=prjtrellis --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-prjtrellis.tgz') != ''
       with:
@@ -817,9 +820,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-prjtrellis.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-prjtrellis-bba:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -827,6 +827,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -839,8 +840,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=prjtrellis-bba --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-prjtrellis-bba.tgz') != ''
       with:
@@ -852,9 +855,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-prjtrellis-bba.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-python3-native:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -862,6 +862,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -874,8 +875,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=python3-native --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-python3-native.tgz') != ''
       with:
@@ -887,9 +890,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-python3-native.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-system-resources-min:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -897,6 +897,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -909,9 +910,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=system-resources-min --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-system-resources-min.tgz') != ''
       with:
@@ -923,9 +926,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-system-resources-min.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-icestorm:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -933,6 +933,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -945,8 +946,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=icestorm --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-icestorm.tgz') != ''
       with:
@@ -958,9 +961,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-icestorm.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -968,6 +968,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -980,8 +981,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=iverilog --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-iverilog.tgz') != ''
       with:
@@ -993,9 +996,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-iverilog.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-openfpgaloader:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1003,6 +1003,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1015,9 +1016,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=openfpgaloader --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-openfpgaloader.tgz') != ''
       with:
@@ -1029,9 +1032,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-openfpgaloader.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-prjtrellis:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1039,6 +1039,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1051,8 +1052,10 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=prjtrellis --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-prjtrellis.tgz') != ''
       with:
@@ -1064,9 +1067,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-prjtrellis.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-system-resources-min:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1074,6 +1074,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1086,9 +1087,11 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=system-resources-min --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-system-resources-min.tgz') !=
         ''
@@ -1101,9 +1104,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-system-resources-min.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-icestorm-full:
     runs-on: ubuntu-latest
     needs:
@@ -1113,20 +1113,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=icestorm-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/icestorm-full
       run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
@@ -1137,9 +1143,6 @@ jobs:
       with:
         name: darwin-arm64-icestorm-full
         path: oss-cad-suite-build/darwin-arm64-icestorm.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-iverilog-full:
     runs-on: ubuntu-latest
     needs:
@@ -1149,20 +1152,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=iverilog-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/iverilog-full
       run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
@@ -1173,9 +1182,6 @@ jobs:
       with:
         name: darwin-arm64-iverilog-full
         path: oss-cad-suite-build/darwin-arm64-iverilog.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-openfpgaloader-full:
     runs-on: ubuntu-latest
     needs:
@@ -1185,20 +1191,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=openfpgaloader-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/openfpgaloader-full
       run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
@@ -1210,9 +1222,6 @@ jobs:
       with:
         name: darwin-arm64-openfpgaloader-full
         path: oss-cad-suite-build/darwin-arm64-openfpgaloader.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-prjtrellis-full:
     runs-on: ubuntu-latest
     needs:
@@ -1222,20 +1231,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=prjtrellis-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/prjtrellis-full
       run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
@@ -1246,9 +1261,6 @@ jobs:
       with:
         name: darwin-arm64-prjtrellis-full
         path: oss-cad-suite-build/darwin-arm64-prjtrellis.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-icestorm-full:
     runs-on: ubuntu-latest
     needs:
@@ -1258,20 +1270,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=icestorm-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/icestorm-full
       run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
@@ -1282,9 +1300,6 @@ jobs:
       with:
         name: darwin-x64-icestorm-full
         path: oss-cad-suite-build/darwin-x64-icestorm.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-iverilog-full:
     runs-on: ubuntu-latest
     needs:
@@ -1294,20 +1309,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=iverilog-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/iverilog-full
       run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
@@ -1318,9 +1339,6 @@ jobs:
       with:
         name: darwin-x64-iverilog-full
         path: oss-cad-suite-build/darwin-x64-iverilog.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-openfpgaloader-full:
     runs-on: ubuntu-latest
     needs:
@@ -1330,20 +1348,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=openfpgaloader-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/openfpgaloader-full
       run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
@@ -1354,9 +1378,6 @@ jobs:
       with:
         name: darwin-x64-openfpgaloader-full
         path: oss-cad-suite-build/darwin-x64-openfpgaloader.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-prjtrellis-full:
     runs-on: ubuntu-latest
     needs:
@@ -1366,20 +1387,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=prjtrellis-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/prjtrellis-full
       run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
@@ -1390,9 +1417,6 @@ jobs:
       with:
         name: darwin-x64-prjtrellis-full
         path: oss-cad-suite-build/darwin-x64-prjtrellis.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-icestorm-full:
     runs-on: ubuntu-latest
     needs:
@@ -1402,20 +1426,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=icestorm-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/icestorm-full
       run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
@@ -1426,9 +1456,6 @@ jobs:
       with:
         name: linux-arm64-icestorm-full
         path: oss-cad-suite-build/linux-arm64-icestorm.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-iverilog-full:
     runs-on: ubuntu-latest
     needs:
@@ -1438,20 +1465,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=iverilog-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/iverilog-full
       run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
@@ -1462,9 +1495,6 @@ jobs:
       with:
         name: linux-arm64-iverilog-full
         path: oss-cad-suite-build/linux-arm64-iverilog.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-openfpgaloader-full:
     runs-on: ubuntu-latest
     needs:
@@ -1474,20 +1504,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=openfpgaloader-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/openfpgaloader-full
       run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
@@ -1499,9 +1535,6 @@ jobs:
       with:
         name: linux-arm64-openfpgaloader-full
         path: oss-cad-suite-build/linux-arm64-openfpgaloader.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-prjtrellis-full:
     runs-on: ubuntu-latest
     needs:
@@ -1511,20 +1544,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=prjtrellis-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/prjtrellis-full
       run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
@@ -1535,9 +1574,6 @@ jobs:
       with:
         name: linux-arm64-prjtrellis-full
         path: oss-cad-suite-build/linux-arm64-prjtrellis.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-yosys:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1545,6 +1581,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1557,12 +1594,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-abc
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-abc.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=yosys --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-yosys.tgz') != ''
       with:
@@ -1574,9 +1614,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-yosys.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-yosys:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1584,6 +1621,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1596,12 +1634,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-abc
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-abc.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=yosys --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-yosys.tgz') != ''
       with:
@@ -1613,9 +1654,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-yosys.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-yosys:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1623,6 +1661,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1635,12 +1674,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-abc
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-abc.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=yosys --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-yosys.tgz') != ''
       with:
@@ -1652,9 +1694,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-yosys.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-yosys:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1663,6 +1702,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1675,12 +1715,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-abc
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-abc.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=yosys --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-yosys.tgz') != ''
       with:
@@ -1692,9 +1735,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-yosys.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-yosys:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1702,6 +1742,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1714,12 +1755,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-abc
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-abc.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=yosys --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-yosys.tgz') != ''
       with:
@@ -1731,9 +1775,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-yosys.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-icestorm-bba:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1742,6 +1783,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1754,12 +1796,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=icestorm-bba --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-icestorm-bba.tgz') != ''
       with:
@@ -1771,9 +1816,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-icestorm-bba.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-python3:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1781,6 +1823,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1793,12 +1836,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=python3 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-python3.tgz') != ''
       with:
@@ -1810,9 +1856,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-python3.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-python3:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1820,6 +1863,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1832,12 +1876,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=python3 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-python3.tgz') != ''
       with:
@@ -1849,9 +1896,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-python3.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-python3:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1859,6 +1903,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1871,12 +1916,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=python3 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-python3.tgz') != ''
       with:
@@ -1888,9 +1936,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-python3.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-python3:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1899,6 +1944,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1911,12 +1957,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=python3 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-python3.tgz') != ''
       with:
@@ -1928,9 +1977,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-python3.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-python3:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1938,6 +1984,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1950,12 +1997,15 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=python3 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-python3.tgz') != ''
       with:
@@ -1967,9 +2017,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-python3.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-icestorm-full:
     runs-on: ubuntu-latest
     needs:
@@ -1979,20 +2026,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=icestorm-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/icestorm-full
       run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
@@ -2003,9 +2056,6 @@ jobs:
       with:
         name: linux-x64-icestorm-full
         path: oss-cad-suite-build/linux-x64-icestorm.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-iverilog-full:
     runs-on: ubuntu-latest
     needs:
@@ -2015,20 +2065,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=iverilog-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/iverilog-full
       run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
@@ -2039,9 +2095,6 @@ jobs:
       with:
         name: linux-x64-iverilog-full
         path: oss-cad-suite-build/linux-x64-iverilog.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-openfpgaloader-full:
     runs-on: ubuntu-latest
     needs:
@@ -2051,20 +2104,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=openfpgaloader-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/openfpgaloader-full
       run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
@@ -2075,9 +2134,6 @@ jobs:
       with:
         name: linux-x64-openfpgaloader-full
         path: oss-cad-suite-build/linux-x64-openfpgaloader.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-prjtrellis-full:
     runs-on: ubuntu-latest
     needs:
@@ -2087,20 +2143,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=prjtrellis-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/prjtrellis-full
       run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
@@ -2111,9 +2173,6 @@ jobs:
       with:
         name: linux-x64-prjtrellis-full
         path: oss-cad-suite-build/linux-x64-prjtrellis.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-icestorm-full:
     runs-on: ubuntu-latest
     needs:
@@ -2123,20 +2182,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=icestorm-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/icestorm-full
       run: 'cp ${tooldir}/.hash ${tooldir}/icestorm-full/.hash
@@ -2147,9 +2212,6 @@ jobs:
       with:
         name: windows-x64-icestorm-full
         path: oss-cad-suite-build/windows-x64-icestorm.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-iverilog-full:
     runs-on: ubuntu-latest
     needs:
@@ -2159,20 +2221,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=iverilog-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/iverilog-full
       run: 'cp ${tooldir}/.hash ${tooldir}/iverilog-full/.hash
@@ -2183,9 +2251,6 @@ jobs:
       with:
         name: windows-x64-iverilog-full
         path: oss-cad-suite-build/windows-x64-iverilog.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-openfpgaloader-full:
     runs-on: ubuntu-latest
     needs:
@@ -2195,20 +2260,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=openfpgaloader-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/openfpgaloader-full
       run: 'cp ${tooldir}/.hash ${tooldir}/openfpgaloader-full/.hash
@@ -2220,9 +2291,6 @@ jobs:
       with:
         name: windows-x64-openfpgaloader-full
         path: oss-cad-suite-build/windows-x64-openfpgaloader.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-prjtrellis-full:
     runs-on: ubuntu-latest
     needs:
@@ -2232,20 +2300,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=prjtrellis-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/prjtrellis-full
       run: 'cp ${tooldir}/.hash ${tooldir}/prjtrellis-full/.hash
@@ -2256,9 +2330,6 @@ jobs:
       with:
         name: windows-x64-prjtrellis-full
         path: oss-cad-suite-build/windows-x64-prjtrellis.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-ghdl-yosys-plugin:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2269,6 +2340,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2281,17 +2353,21 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-ghdl
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=ghdl-yosys-plugin --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-ghdl-yosys-plugin.tgz') != ''
       with:
@@ -2303,9 +2379,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-ghdl-yosys-plugin.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-yosys-full:
     runs-on: ubuntu-latest
     needs:
@@ -2315,20 +2388,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=yosys-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/yosys-full
       run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
@@ -2339,9 +2418,6 @@ jobs:
       with:
         name: darwin-x64-yosys-full
         path: oss-cad-suite-build/darwin-x64-yosys.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-yosys-full:
     runs-on: ubuntu-latest
     needs:
@@ -2351,20 +2427,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=yosys-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/yosys-full
       run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
@@ -2375,9 +2457,6 @@ jobs:
       with:
         name: linux-arm64-yosys-full
         path: oss-cad-suite-build/linux-arm64-yosys.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-ghdl-yosys-plugin:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2388,6 +2467,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2400,17 +2480,21 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-ghdl
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-ghdl.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=ghdl-yosys-plugin --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-ghdl-yosys-plugin.tgz') != ''
       with:
@@ -2422,9 +2506,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-ghdl-yosys-plugin.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-yosys-full:
     runs-on: ubuntu-latest
     needs:
@@ -2434,20 +2515,26 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=yosys-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/yosys-full
       run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
@@ -2458,9 +2545,6 @@ jobs:
       with:
         name: windows-x64-yosys-full
         path: oss-cad-suite-build/windows-x64-yosys.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-nextpnr-ecp5:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2469,6 +2553,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2481,24 +2566,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-prjtrellis-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ecp5 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-ecp5.tgz') != ''
       with:
@@ -2510,9 +2601,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-nextpnr-ecp5.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-nextpnr-generic:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2521,6 +2609,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2533,21 +2622,26 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-generic --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-generic.tgz') != ''
       with:
@@ -2559,9 +2653,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-nextpnr-generic.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-nextpnr-ice40:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2570,6 +2661,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2582,25 +2674,31 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ice40 --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-ice40.tgz') != ''
       with:
@@ -2612,9 +2710,6 @@ jobs:
         tag: bucket-darwin-arm64
         artifacts: oss-cad-suite-build/darwin-arm64-nextpnr-ice40.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-nextpnr-ecp5:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2623,6 +2718,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2635,24 +2731,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-prjtrellis-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ecp5 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-ecp5.tgz') != ''
       with:
@@ -2664,9 +2766,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-nextpnr-ecp5.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-nextpnr-generic:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2675,6 +2774,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2687,21 +2787,26 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=nextpnr-generic --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-generic.tgz') != ''
       with:
@@ -2713,9 +2818,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-nextpnr-generic.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-nextpnr-ice40:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2724,6 +2826,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2736,24 +2839,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ice40 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-ice40.tgz') != ''
       with:
@@ -2765,9 +2874,6 @@ jobs:
         tag: bucket-darwin-x64
         artifacts: oss-cad-suite-build/darwin-x64-nextpnr-ice40.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-nextpnr-ecp5:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2776,6 +2882,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2788,24 +2895,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-prjtrellis-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ecp5 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-ecp5.tgz') != ''
       with:
@@ -2817,9 +2930,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-nextpnr-ecp5.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-nextpnr-generic:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2828,6 +2938,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2840,21 +2951,26 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=nextpnr-generic --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-generic.tgz') != ''
       with:
@@ -2866,9 +2982,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-nextpnr-generic.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-nextpnr-ice40:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2877,6 +2990,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2889,24 +3003,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ice40 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-ice40.tgz') != ''
       with:
@@ -2918,9 +3038,6 @@ jobs:
         tag: bucket-linux-arm64
         artifacts: oss-cad-suite-build/linux-arm64-nextpnr-ice40.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-ecp5:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2933,6 +3050,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2945,24 +3063,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-prjtrellis-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-ecp5 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-ecp5.tgz') != ''
       with:
@@ -2974,9 +3098,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-nextpnr-ecp5.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-generic:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2988,6 +3109,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3000,20 +3122,25 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-generic --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-generic.tgz') != ''
       with:
@@ -3025,9 +3152,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-nextpnr-generic.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-ice40:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -3040,6 +3164,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3052,24 +3177,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-ice40 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-ice40.tgz') != ''
       with:
@@ -3081,9 +3212,6 @@ jobs:
         tag: bucket-linux-x64
         artifacts: oss-cad-suite-build/linux-x64-nextpnr-ice40.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-nextpnr-ecp5:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -3092,6 +3220,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3104,24 +3233,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-prjtrellis-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=nextpnr-ecp5 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-ecp5.tgz') != ''
       with:
@@ -3133,9 +3268,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-nextpnr-ecp5.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-nextpnr-generic:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -3144,6 +3276,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3156,21 +3289,26 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=nextpnr-generic --single
         --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-generic.tgz') != ''
       with:
@@ -3182,9 +3320,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-nextpnr-generic.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-nextpnr-ice40:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -3193,6 +3328,7 @@ jobs:
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3205,24 +3341,30 @@ jobs:
         \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-icestorm-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-bba
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3-native
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=nextpnr-ice40 --single --tar
+      working-directory: oss-cad-suite-build
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-ice40.tgz') != ''
       with:
@@ -3234,9 +3376,6 @@ jobs:
         tag: bucket-windows-x64
         artifacts: oss-cad-suite-build/windows-x64-nextpnr-ice40.tgz
         token: ${{ secrets.GITHUB_TOKEN }}
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-yosys-full:
     runs-on: ubuntu-latest
     needs:
@@ -3248,28 +3387,36 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-ghdl
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-ghdl-yosys-plugin
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl-yosys-plugin.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=yosys-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/yosys-full
       run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
@@ -3280,9 +3427,6 @@ jobs:
       with:
         name: darwin-arm64-yosys-full
         path: oss-cad-suite-build/darwin-arm64-yosys.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-yosys-full:
     runs-on: ubuntu-latest
     needs:
@@ -3294,28 +3438,36 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-ghdl
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-ghdl.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-ghdl-yosys-plugin
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-ghdl-yosys-plugin.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-yosys
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-yosys.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=yosys-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/yosys-full
       run: 'cp ${tooldir}/.hash ${tooldir}/yosys-full/.hash
@@ -3326,9 +3478,6 @@ jobs:
       with:
         name: linux-x64-yosys-full
         path: oss-cad-suite-build/linux-x64-yosys.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-nextpnr-ecp5-full:
     runs-on: ubuntu-latest
     needs:
@@ -3339,24 +3488,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ecp5-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/nextpnr-ecp5-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
@@ -3367,9 +3523,6 @@ jobs:
       with:
         name: darwin-arm64-nextpnr-ecp5-full
         path: oss-cad-suite-build/darwin-arm64-nextpnr-ecp5.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-nextpnr-generic-full:
     runs-on: ubuntu-latest
     needs:
@@ -3380,24 +3533,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-generic-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/nextpnr-generic-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
@@ -3409,9 +3569,6 @@ jobs:
       with:
         name: darwin-arm64-nextpnr-generic-full
         path: oss-cad-suite-build/darwin-arm64-nextpnr-generic.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-arm64-nextpnr-ice40-full:
     runs-on: ubuntu-latest
     needs:
@@ -3422,24 +3579,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ice40-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-arm64/nextpnr-ice40-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
@@ -3450,9 +3614,6 @@ jobs:
       with:
         name: darwin-arm64-nextpnr-ice40-full
         path: oss-cad-suite-build/darwin-arm64-nextpnr-ice40.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-nextpnr-ecp5-full:
     runs-on: ubuntu-latest
     needs:
@@ -3463,24 +3624,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ecp5-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/nextpnr-ecp5-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
@@ -3491,9 +3659,6 @@ jobs:
       with:
         name: darwin-x64-nextpnr-ecp5-full
         path: oss-cad-suite-build/darwin-x64-nextpnr-ecp5.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-nextpnr-generic-full:
     runs-on: ubuntu-latest
     needs:
@@ -3504,24 +3669,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=nextpnr-generic-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/nextpnr-generic-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
@@ -3533,9 +3705,6 @@ jobs:
       with:
         name: darwin-x64-nextpnr-generic-full
         path: oss-cad-suite-build/darwin-x64-nextpnr-generic.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   darwin-x64-nextpnr-ice40-full:
     runs-on: ubuntu-latest
     needs:
@@ -3546,24 +3715,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ice40-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/darwin-x64/nextpnr-ice40-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
@@ -3574,9 +3750,6 @@ jobs:
       with:
         name: darwin-x64-nextpnr-ice40-full
         path: oss-cad-suite-build/darwin-x64-nextpnr-ice40.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-nextpnr-ecp5-full:
     runs-on: ubuntu-latest
     needs:
@@ -3587,24 +3760,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ecp5-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/nextpnr-ecp5-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
@@ -3615,9 +3795,6 @@ jobs:
       with:
         name: linux-arm64-nextpnr-ecp5-full
         path: oss-cad-suite-build/linux-arm64-nextpnr-ecp5.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-nextpnr-generic-full:
     runs-on: ubuntu-latest
     needs:
@@ -3628,24 +3805,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=nextpnr-generic-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/nextpnr-generic-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
@@ -3657,9 +3841,6 @@ jobs:
       with:
         name: linux-arm64-nextpnr-generic-full
         path: oss-cad-suite-build/linux-arm64-nextpnr-generic.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-arm64-nextpnr-ice40-full:
     runs-on: ubuntu-latest
     needs:
@@ -3670,24 +3851,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ice40-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-arm64/nextpnr-ice40-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
@@ -3698,9 +3886,6 @@ jobs:
       with:
         name: linux-arm64-nextpnr-ice40-full
         path: oss-cad-suite-build/linux-arm64-nextpnr-ice40.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-ecp5-full:
     runs-on: ubuntu-latest
     needs:
@@ -3711,24 +3896,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-ecp5-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/nextpnr-ecp5-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
@@ -3739,9 +3931,6 @@ jobs:
       with:
         name: linux-x64-nextpnr-ecp5-full
         path: oss-cad-suite-build/linux-x64-nextpnr-ecp5.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-generic-full:
     runs-on: ubuntu-latest
     needs:
@@ -3752,24 +3941,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-generic-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/nextpnr-generic-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
@@ -3781,9 +3977,6 @@ jobs:
       with:
         name: linux-x64-nextpnr-generic-full
         path: oss-cad-suite-build/linux-x64-nextpnr-generic.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   linux-x64-nextpnr-ice40-full:
     runs-on: ubuntu-latest
     needs:
@@ -3794,24 +3987,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download linux-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=linux-x64 --target=nextpnr-ice40-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/linux-x64/nextpnr-ice40-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
@@ -3822,9 +4022,6 @@ jobs:
       with:
         name: linux-x64-nextpnr-ice40-full
         path: oss-cad-suite-build/linux-x64-nextpnr-ice40.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-nextpnr-ecp5-full:
     runs-on: ubuntu-latest
     needs:
@@ -3835,24 +4032,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=nextpnr-ecp5-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/nextpnr-ecp5-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ecp5-full/.hash
@@ -3863,9 +4067,6 @@ jobs:
       with:
         name: windows-x64-nextpnr-ecp5-full
         path: oss-cad-suite-build/windows-x64-nextpnr-ecp5.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-nextpnr-generic-full:
     runs-on: ubuntu-latest
     needs:
@@ -3876,24 +4077,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=nextpnr-generic-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/nextpnr-generic-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-generic-full/.hash
@@ -3905,9 +4113,6 @@ jobs:
       with:
         name: windows-x64-nextpnr-generic-full
         path: oss-cad-suite-build/windows-x64-nextpnr-generic.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   windows-x64-nextpnr-ice40-full:
     runs-on: ubuntu-latest
     needs:
@@ -3918,24 +4123,31 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: oss-cad-suite-build
     - uses: actions/checkout@v5
     - name: Inject targets
       run: cp -r ../edacation .
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-python3
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
+      working-directory: oss-cad-suite-build
     - name: Build
       run: ./builder.py build --arch=windows-x64 --target=nextpnr-ice40-full --single
+      working-directory: oss-cad-suite-build
     - name: Tar build output
+      working-directory: oss-cad-suite-build
       env:
         tooldir: _outputs/windows-x64/nextpnr-ice40-full
       run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-ice40-full/.hash
@@ -3946,9 +4158,6 @@ jobs:
       with:
         name: windows-x64-nextpnr-ice40-full
         path: oss-cad-suite-build/windows-x64-nextpnr-ice40.tgz
-    defaults:
-      run:
-        working-directory: oss-cad-suite-build
   package:
     runs-on: ubuntu-latest
     needs:
