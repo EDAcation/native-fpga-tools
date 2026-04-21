@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import os
 import re
 import subprocess
@@ -42,6 +43,7 @@ class Job:
     is_top_package: bool
     needs: set[str] = field(default_factory=set)
     download_deps: set[str] = field(default_factory=set)
+    raw_job: dict[str, object] = field(default_factory=dict)
 
 
 class Args(argparse.Namespace):
@@ -149,6 +151,7 @@ def parse_generated_ci(yaml_text: str, arches: list[str]) -> dict[str, Job]:
             is_top_package=is_top_package,
             needs=needs,
             download_deps=download_deps,
+            raw_job=cast(dict[str, object], copy.deepcopy(job_raw)),
         )
 
     return jobs
@@ -187,6 +190,7 @@ def merge_jobs(job_sets: Iterable[dict[str, Job]]) -> dict[str, Job]:
                     is_top_package=job.is_top_package,
                     needs=set(job.needs),
                     download_deps=set(job.download_deps),
+                    raw_job=copy.deepcopy(job.raw_job),
                 )
                 continue
 
@@ -200,6 +204,11 @@ def merge_jobs(job_sets: Iterable[dict[str, Job]]) -> dict[str, Job]:
 
             current.needs.update(job.needs)
             current.download_deps.update(job.download_deps)
+
+            if current.raw_job != job.raw_job:
+                raise ValueError(
+                    f"Conflicting upstream job bodies for '{name}' across generated inputs"
+                )
 
     return merged
 
@@ -253,26 +262,128 @@ def topological_order(jobs: dict[str, Job], required: set[str]) -> list[str]:
     return ordered
 
 
-def _append_download_and_extract_steps(
-    steps: list[dict[str, object]], job: Job, available: set[str]
-) -> None:
-    for dep in sorted(job.download_deps):
-        if dep not in available:
-            continue
+def _prefix_hashfiles_paths(condition: str) -> str:
+    pattern = re.compile(r"hashFiles\('([^']+)'\)")
 
-        steps.extend(
-            [
-                {
-                    "name": f"Download {dep}",
-                    "uses": "actions/download-artifact@v4",
-                    "with": {"name": dep, "path": f"_deps/{dep}"},
+    def repl(match: re.Match[str]) -> str:
+        path = match.group(1)
+        if path.startswith("oss-cad-suite-build/"):
+            return match.group(0)
+        return f"hashFiles('oss-cad-suite-build/{path}')"
+
+    return pattern.sub(repl, condition)
+
+
+def _transform_release_paths(job_dict: dict[object, object]) -> None:
+    if_expr = job_dict.get("if")
+    if isinstance(if_expr, str):
+        job_dict["if"] = _prefix_hashfiles_paths(if_expr)
+
+    with_obj = job_dict.get("with")
+    if not isinstance(with_obj, dict):
+        return
+    with_dict = cast(dict[object, object], with_obj)
+
+    artifacts = with_dict.get("artifacts")
+    if isinstance(artifacts, str) and not artifacts.startswith("oss-cad-suite-build/"):
+        with_dict["artifacts"] = f"oss-cad-suite-build/{artifacts}"
+
+
+def _adapt_upstream_job(
+    job: Job, inject_targets_step: dict[object, object]
+) -> dict[str, object]:
+    job_dict = copy.deepcopy(job.raw_job)
+
+    steps_obj = job_dict.get("steps")
+    if not isinstance(steps_obj, list):
+        raise ValueError(f"Upstream job '{job.name}' has malformed steps")
+    steps = cast(list[object], steps_obj)
+
+    insertion_index = 1
+    for i, step_obj in enumerate(steps):
+        if not isinstance(step_obj, dict):
+            continue
+        step = cast(dict[object, object], step_obj)
+        uses = step.get("uses")
+        if isinstance(uses, str) and uses.startswith("actions/checkout@"):
+            insertion_index = i + 1
+            break
+
+    steps.insert(insertion_index, copy.deepcopy(inject_targets_step))
+
+    job_dict["defaults"] = {
+        "run": {
+            "working-directory": "oss-cad-suite-build",
+        }
+    }
+
+    for step_obj in steps:
+        if not isinstance(step_obj, dict):
+            continue
+        step = cast(dict[object, object], step_obj)
+
+        uses = step.get("uses")
+        with_obj = step.get("with")
+        if (
+            isinstance(uses, str)
+            and uses.startswith("actions/cache@")
+            and isinstance(with_obj, dict)
+        ):
+            with_dict = cast(dict[object, object], with_obj)
+            cache_path = with_dict.get("path")
+            if isinstance(cache_path, str) and not cache_path.startswith(
+                "oss-cad-suite-build/"
+            ):
+                with_dict["path"] = f"oss-cad-suite-build/{cache_path}"
+
+        if isinstance(uses, str) and uses.startswith("ncipollo/release-action@"):
+            _transform_release_paths(step)
+
+    return job_dict
+
+
+def _replace_top_package_publisher(
+    job_dict: dict[str, object], job: Job
+) -> dict[str, object]:
+    steps_obj = job_dict.get("steps")
+    if not isinstance(steps_obj, list):
+        raise ValueError(f"Top package job '{job.name}' has malformed steps")
+
+    new_steps: list[object] = []
+    for step_obj in cast(list[object], steps_obj):
+        if isinstance(step_obj, dict):
+            step = cast(dict[object, object], step_obj)
+            uses = step.get("uses")
+            if isinstance(uses, str) and uses.startswith("ncipollo/release-action@"):
+                continue
+        new_steps.append(cast(object, step_obj))
+
+    short_target = job.target.removesuffix("-full")
+    new_steps.extend(
+        [
+            {
+                "name": "Tar build output",
+                "env": {
+                    "tooldir": f"_outputs/{job.arch}/{job.target}",
                 },
-                {
-                    "name": f"Extract {dep}",
-                    "run": f"tar -xzf _deps/{dep}/*.tgz -C oss-cad-suite-build",
+                "run": (
+                    f"cp ${{tooldir}}/.hash ${{tooldir}}/{job.target}/.hash\n"
+                    f"tar -C ${{tooldir}}/{job.target} -czf {job.arch}-{short_target}.tgz ."
+                ),
+            },
+            {
+                "name": "Upload artifact",
+                "uses": "actions/upload-artifact@v4",
+                "with": {
+                    "name": job.name,
+                    "path": f"oss-cad-suite-build/{job.arch}-{short_target}.tgz",
                 },
-            ]
-        )
+            },
+        ]
+    )
+    job_dict["steps"] = new_steps
+
+    return job_dict
 
 
 def render_workflow(
@@ -298,97 +409,16 @@ def render_workflow(
     if not isinstance(jobs_section, dict):
         raise ValueError("Internal error while constructing workflow jobs")
 
-    available = set(ordered_jobs)
+    inject_targets_step: dict[object, object] = {
+        "name": "Inject targets",
+        "run": "cp -r edacation oss-cad-suite-build/",
+    }
 
     for job_name in ordered_jobs:
         job = jobs[job_name]
-        deps = sorted((job.needs | job.download_deps) & available)
-
-        steps: list[dict[str, object]] = [
-            {
-                "uses": "actions/checkout@v4",
-                "with": {"submodules": True},
-            },
-            {
-                "name": "Inject targets",
-                "run": "cp -r edacation oss-cad-suite-build/",
-            },
-        ]
-
-        job_dict: dict[str, object] = {
-            "runs-on": "ubuntu-latest",
-            "steps": steps,
-        }
-        if deps:
-            job_dict["needs"] = deps[0] if len(deps) == 1 else deps
-
-        if not job.is_top_package:
-            steps.append(
-                {
-                    "name": "Cache sources",
-                    "uses": "actions/cache@v4",
-                    "with": {
-                        "path": "oss-cad-suite-build/_sources",
-                        "key": f"cache-sources-{job.target}",
-                    },
-                }
-            )
-
-        _append_download_and_extract_steps(steps, job, available)
-
+        job_dict = _adapt_upstream_job(job, inject_targets_step)
         if job.is_top_package:
-            short_target = job.target.removesuffix("-full")
-            steps.extend(
-                [
-                    {
-                        "name": "Build",
-                        "run": (
-                            "cd oss-cad-suite-build/\n"
-                            f"./builder.py build --rules=default,edacation --arch={job.arch} "
-                            f"--target={job.target} --single"
-                        ),
-                    },
-                    {
-                        "name": "Tar build output",
-                        "env": {
-                            "tooldir": f"oss-cad-suite-build/_outputs/{job.arch}/{job.target}",
-                        },
-                        "run": (
-                            f"cp ${{tooldir}}/.hash ${{tooldir}}/{job.target}/.hash\n"
-                            f"tar -C ${{tooldir}}/{job.target} -czf {job.arch}-{short_target}.tgz ."
-                        ),
-                    },
-                    {
-                        "name": "Upload artifact",
-                        "uses": "actions/upload-artifact@v4",
-                        "with": {
-                            "name": job.name,
-                            "path": f"{job.arch}-{short_target}.tgz",
-                        },
-                    },
-                ]
-            )
-        else:
-            steps.extend(
-                [
-                    {
-                        "name": "Build",
-                        "run": (
-                            "cd oss-cad-suite-build/\n"
-                            f"./builder.py build --rules=default,edacation --arch={job.arch} "
-                            f"--target={job.target} --single --tar"
-                        ),
-                    },
-                    {
-                        "name": "Upload artifact",
-                        "uses": "actions/upload-artifact@v4",
-                        "with": {
-                            "name": job.name,
-                            "path": f"oss-cad-suite-build/{job.name}.tgz",
-                        },
-                    },
-                ]
-            )
+            job_dict = _replace_top_package_publisher(job_dict, job)
 
         jobs_section[job.name] = job_dict
 
