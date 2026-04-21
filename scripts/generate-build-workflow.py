@@ -300,6 +300,7 @@ def _adapt_upstream_job(
     steps = cast(list[object], steps_obj)
 
     insertion_index = 1
+    checkout_index = -1
     for i, step_obj in enumerate(steps):
         if not isinstance(step_obj, dict):
             continue
@@ -307,6 +308,7 @@ def _adapt_upstream_job(
         uses = step.get("uses")
         if isinstance(uses, str) and uses.startswith("actions/checkout@"):
             insertion_index = i + 1
+            checkout_index = i
             break
 
     steps.insert(insertion_index, copy.deepcopy(inject_targets_step))
@@ -347,6 +349,16 @@ def _adapt_upstream_job(
 
         if isinstance(uses, str) and uses.startswith("ncipollo/release-action@"):
             _transform_release_paths(step)
+
+    if checkout_index > 0:
+        for step_obj in steps[:checkout_index]:
+            if not isinstance(step_obj, dict):
+                continue
+            step = cast(dict[object, object], step_obj)
+            run_cmd = step.get("run")
+            if isinstance(run_cmd, str):
+                # Pre-checkout run steps cannot use oss-cad-suite-build.
+                step["working-directory"] = "."
 
     return job_dict
 

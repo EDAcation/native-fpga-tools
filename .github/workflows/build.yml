@@ -1175,6 +1175,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1213,6 +1214,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1251,6 +1253,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1290,6 +1293,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1328,6 +1332,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1366,6 +1371,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1404,6 +1410,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1442,6 +1449,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1480,6 +1488,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1518,6 +1527,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1556,6 +1566,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -1595,6 +1606,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2087,6 +2099,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2125,6 +2138,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2163,6 +2177,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2201,6 +2216,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2239,6 +2255,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2277,6 +2294,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2315,6 +2333,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2354,6 +2373,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2441,6 +2461,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2479,6 +2500,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -2566,6 +2588,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3412,6 +3435,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3460,6 +3484,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3507,6 +3532,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3550,6 +3576,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3594,6 +3621,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3637,6 +3665,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3680,6 +3709,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3724,6 +3754,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3767,6 +3798,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3810,6 +3842,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3854,6 +3887,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3897,6 +3931,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3940,6 +3975,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -3984,6 +4020,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -4027,6 +4064,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -4070,6 +4108,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
@@ -4114,6 +4153,7 @@ jobs:
     - name: Get current date
       id: date
       run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
     - uses: actions/checkout@v5
       with:
         submodules: true
