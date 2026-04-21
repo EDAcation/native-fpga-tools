@@ -411,7 +411,7 @@ def render_workflow(
 
     inject_targets_step: dict[object, object] = {
         "name": "Inject targets",
-        "run": "cp -r edacation oss-cad-suite-build/",
+        "run": "cp -r ../edacation .",
     }
 
     for job_name in ordered_jobs:
