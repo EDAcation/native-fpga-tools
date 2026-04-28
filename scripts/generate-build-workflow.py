@@ -346,7 +346,7 @@ def render_workflow(
             {
                 "name": "Package tools",
                 "env": {"PYTHONUNBUFFERED": "1"},
-                "run": "./package.py --in-dir=_tools/ --out-dir=_outputs/ --report tools.json",
+                "run": "./scripts/package.py --in-dir=_tools/ --out-dir=_outputs/ --report tools.json --release-note release.md",
             },
             {
                 "name": "Get release version",
@@ -355,9 +355,10 @@ def render_workflow(
             },
             {
                 "name": "Release tools",
-                "uses": "softprops/action-gh-release@v2",
+                "uses": "softprops/action-gh-release@v3",
                 "with": {
                     "tag_name": "${{ steps.version.outputs.version }}",
+                    "body_path": "release.md",
                     "files": "_outputs/*\ntools.json",
                 },
             },
