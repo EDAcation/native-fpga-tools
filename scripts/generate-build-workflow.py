@@ -35,7 +35,7 @@ DEFAULT_TARGETS = [
 class Args(argparse.Namespace):
     repo_root: str = "."
     output: str = ".github/workflows/build.yml"
-    rules: str = "default,edacation"
+    rules: str = "default,../edacation"
     arches: str = ",".join(DEFAULT_ARCHES)
     targets: str = ",".join(DEFAULT_TARGETS)
     cron: str = "0 1 * * *"
@@ -138,9 +138,7 @@ def _transform_release_paths(job_dict: dict[object, object]) -> None:
         with_dict["artifacts"] = f"oss-cad-suite-build/{artifacts}"
 
 
-def _adapt_upstream_job(
-    job_dict: dict[str, object], inject_targets_step: dict[object, object]
-) -> dict[str, object]:
+def _adapt_upstream_job(job_dict: dict[str, object]) -> dict[str, object]:
     job_dict = copy.deepcopy(job_dict)
 
     steps_obj = job_dict.get("steps")
@@ -148,7 +146,6 @@ def _adapt_upstream_job(
         raise ValueError("Upstream job has malformed steps")
     steps = cast(list[object], steps_obj)
 
-    insertion_index = 1
     checkout_index = -1
     for i, step_obj in enumerate(steps):
         if not isinstance(step_obj, dict):
@@ -156,12 +153,8 @@ def _adapt_upstream_job(
         step = cast(dict[object, object], step_obj)
         uses = step.get("uses")
         if isinstance(uses, str) and uses.startswith("actions/checkout@"):
-            insertion_index = i + 1
             checkout_index = i
             break
-
-    # Transform: inject local rules into upstream builder tree.
-    steps.insert(insertion_index, copy.deepcopy(inject_targets_step))
 
     # Transform: run upstream shell steps from the builder submodule directory.
     job_dict["defaults"] = {
@@ -302,13 +295,8 @@ def render_workflow(
     if not isinstance(jobs_section, dict):
         raise ValueError("Internal error while constructing workflow jobs")
 
-    inject_targets_step: dict[object, object] = {
-        "name": "Inject targets",
-        "run": "cp -r ../edacation .",
-    }
-
     for job_name in jobs:
-        job_dict = _adapt_upstream_job(jobs[job_name], inject_targets_step)
+        job_dict = _adapt_upstream_job(jobs[job_name])
         if job_name.endswith("-full"):
             job_dict = _replace_top_package_publisher(job_dict, job_name)
 
