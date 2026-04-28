@@ -14,6 +14,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -27,7 +29,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=abc --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=abc --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-abc.tgz') != ''
@@ -51,6 +53,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -68,7 +72,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=yosys --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=yosys --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-yosys.tgz') != ''
@@ -91,6 +95,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -104,7 +110,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=ghdl --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=ghdl --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-ghdl.tgz') != ''
@@ -130,6 +136,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -151,7 +159,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=ghdl-yosys-plugin --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=ghdl-yosys-plugin --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-ghdl-yosys-plugin.tgz') != ''
@@ -174,6 +182,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -187,7 +197,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=system-resources-min --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=system-resources-min --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-system-resources-min.tgz') != ''
@@ -218,6 +228,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-ghdl
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-ghdl.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -235,7 +247,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=yosys-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=yosys-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -258,6 +270,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -271,7 +285,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=python3-native --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=python3-native --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-python3-native.tgz') != ''
@@ -295,6 +309,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -312,7 +328,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=python3 --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=python3 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-python3.tgz') != ''
@@ -335,6 +351,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -348,7 +366,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-bba --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-bba --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-bba.tgz') != ''
@@ -375,6 +393,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -400,7 +420,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-generic --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-generic --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-generic.tgz') != ''
@@ -430,6 +450,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -443,7 +465,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-generic-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-generic-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -467,6 +489,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -480,7 +504,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=icestorm --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=icestorm --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-icestorm.tgz') != ''
@@ -504,6 +528,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -521,7 +547,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=icestorm-bba --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=icestorm-bba --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-icestorm-bba.tgz') != ''
@@ -549,6 +575,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -578,7 +606,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ice40 --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ice40 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-ice40.tgz') != ''
@@ -608,6 +636,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -621,7 +651,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ice40-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ice40-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -644,6 +674,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -657,7 +689,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=prjtrellis-bba --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=prjtrellis-bba --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-prjtrellis-bba.tgz') != ''
@@ -685,6 +717,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -714,7 +748,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ecp5 --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ecp5 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-ecp5.tgz') != ''
@@ -744,6 +778,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -757,7 +793,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ecp5-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-ecp5-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -780,6 +816,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -793,7 +831,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=iverilog --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=iverilog --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-iverilog.tgz') != ''
@@ -822,6 +860,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -831,7 +871,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=iverilog-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=iverilog-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -854,6 +894,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -867,7 +909,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=openfpgaloader --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=openfpgaloader --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-openfpgaloader.tgz') != ''
@@ -896,6 +938,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -905,7 +949,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=openfpgaloader-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=openfpgaloader-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -928,6 +972,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -941,7 +987,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=prjtrellis --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=prjtrellis --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-x64-prjtrellis.tgz') != ''
@@ -970,6 +1016,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -979,7 +1027,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=prjtrellis-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=prjtrellis-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1008,6 +1056,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1017,7 +1067,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-x64 --target=icestorm-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-x64 --target=icestorm-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1040,6 +1090,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1057,7 +1109,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=yosys --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=yosys --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-yosys.tgz') != ''
@@ -1080,6 +1132,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1093,7 +1147,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=system-resources-min --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=system-resources-min --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-system-resources-min.tgz') !=
@@ -1123,6 +1177,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1132,7 +1188,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=yosys-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=yosys-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1155,6 +1211,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1172,7 +1230,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=python3 --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=python3 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-python3.tgz') != ''
@@ -1196,6 +1254,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1221,7 +1281,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-generic --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-generic --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-generic.tgz') != ''
@@ -1251,6 +1311,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1264,7 +1326,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-generic-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-generic-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1289,6 +1351,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1318,7 +1382,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ice40 --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ice40 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-ice40.tgz') != ''
@@ -1348,6 +1412,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1361,7 +1427,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ice40-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ice40-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1385,6 +1451,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1414,7 +1482,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ecp5 --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ecp5 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-ecp5.tgz') != ''
@@ -1444,6 +1512,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1457,7 +1527,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ecp5-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-ecp5-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1480,6 +1550,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1493,7 +1565,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=iverilog --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=iverilog --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-iverilog.tgz') != ''
@@ -1522,6 +1594,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1531,7 +1605,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=iverilog-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=iverilog-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1554,6 +1628,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1567,7 +1643,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=openfpgaloader --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=openfpgaloader --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-openfpgaloader.tgz') != ''
@@ -1596,6 +1672,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1605,7 +1683,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=openfpgaloader-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=openfpgaloader-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1629,6 +1707,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1642,7 +1722,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=prjtrellis --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=prjtrellis --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-prjtrellis.tgz') != ''
@@ -1671,6 +1751,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1680,7 +1762,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=prjtrellis-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=prjtrellis-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1703,6 +1785,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1716,7 +1800,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=icestorm --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=icestorm --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/linux-arm64-icestorm.tgz') != ''
@@ -1745,6 +1829,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download linux-arm64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1754,7 +1840,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=linux-arm64 --target=icestorm-full --rules=default,../edacation
+      run: ./builder.py build --arch=linux-arm64 --target=icestorm-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1777,6 +1863,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1794,7 +1882,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=yosys --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=yosys --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-yosys.tgz') != ''
@@ -1817,6 +1905,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1830,7 +1920,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=system-resources-min --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=system-resources-min --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-system-resources-min.tgz') !=
@@ -1860,6 +1950,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -1869,7 +1961,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=yosys-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=yosys-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -1892,6 +1984,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1909,7 +2003,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=python3 --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=python3 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-python3.tgz') != ''
@@ -1933,6 +2027,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -1958,7 +2054,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=nextpnr-generic --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-generic --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-generic.tgz') != ''
@@ -1988,6 +2084,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2001,7 +2099,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=nextpnr-generic-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-generic-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2026,6 +2124,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2055,7 +2155,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ice40 --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ice40 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-ice40.tgz') != ''
@@ -2085,6 +2185,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2098,7 +2200,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ice40-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ice40-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2122,6 +2224,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2151,7 +2255,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ecp5 --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ecp5 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-ecp5.tgz') != ''
@@ -2181,6 +2285,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2194,7 +2300,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ecp5-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-ecp5-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2217,6 +2323,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2230,7 +2338,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=iverilog --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=iverilog --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-iverilog.tgz') != ''
@@ -2259,6 +2367,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2268,7 +2378,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=iverilog-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=iverilog-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2291,6 +2401,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2304,7 +2416,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=openfpgaloader --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=openfpgaloader --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-openfpgaloader.tgz') != ''
@@ -2333,6 +2445,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2342,7 +2456,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=openfpgaloader-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=openfpgaloader-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2366,6 +2480,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2379,7 +2495,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=prjtrellis --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=prjtrellis --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-prjtrellis.tgz') != ''
@@ -2408,6 +2524,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2417,7 +2535,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=prjtrellis-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=prjtrellis-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2440,6 +2558,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2453,7 +2573,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=icestorm --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=icestorm --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/windows-x64-icestorm.tgz') != ''
@@ -2482,6 +2602,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download windows-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2491,7 +2613,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=windows-x64 --target=icestorm-full --rules=default,../edacation
+      run: ./builder.py build --arch=windows-x64 --target=icestorm-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2514,6 +2636,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2531,7 +2655,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=yosys --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=yosys --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-yosys.tgz') != ''
@@ -2554,6 +2678,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2567,7 +2693,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=system-resources-min --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=system-resources-min --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-system-resources-min.tgz') !=
@@ -2597,6 +2723,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2606,7 +2734,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=yosys-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=yosys-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2629,6 +2757,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2646,7 +2776,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=python3 --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=python3 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-python3.tgz') != ''
@@ -2670,6 +2800,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2695,7 +2827,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-generic --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-generic --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-generic.tgz') != ''
@@ -2725,6 +2857,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2738,7 +2872,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-generic-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-generic-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2763,6 +2897,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2792,7 +2928,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ice40 --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ice40 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-ice40.tgz') != ''
@@ -2822,6 +2958,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2835,7 +2973,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ice40-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ice40-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2859,6 +2997,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2888,7 +3028,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ecp5 --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ecp5 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-ecp5.tgz') != ''
@@ -2918,6 +3058,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -2931,7 +3073,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ecp5-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-ecp5-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -2954,6 +3096,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -2967,7 +3111,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=iverilog --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=iverilog --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-iverilog.tgz') != ''
@@ -2996,6 +3140,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3005,7 +3151,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=iverilog-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=iverilog-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3028,6 +3174,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3041,7 +3189,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=openfpgaloader --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=openfpgaloader --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-openfpgaloader.tgz') != ''
@@ -3070,6 +3218,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3079,7 +3229,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=openfpgaloader-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=openfpgaloader-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3102,6 +3252,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3115,7 +3267,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=prjtrellis --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=prjtrellis --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-prjtrellis.tgz') != ''
@@ -3144,6 +3296,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3153,7 +3307,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=prjtrellis-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=prjtrellis-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3176,6 +3330,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3189,7 +3345,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=icestorm --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=icestorm --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-x64-icestorm.tgz') != ''
@@ -3218,6 +3374,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-x64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3227,7 +3385,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-x64 --target=icestorm-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-x64 --target=icestorm-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3250,6 +3408,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3267,7 +3427,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=yosys --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=yosys --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-yosys.tgz') != ''
@@ -3283,6 +3443,93 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  darwin-arm64-ghdl:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-ghdl
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Build
+      run: ./builder.py build --arch=darwin-arm64 --target=ghdl --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/darwin-arm64-ghdl.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-darwin-arm64
+        artifacts: oss-cad-suite-build/darwin-arm64-ghdl.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  darwin-arm64-ghdl-yosys-plugin:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs:
+    - darwin-arm64-ghdl
+    - darwin-arm64-yosys
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-ghdl-yosys-plugin
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl-yosys-plugin.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download darwin-arm64-ghdl
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-arm64-yosys
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-yosys.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-arm64 --target=ghdl-yosys-plugin --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/darwin-arm64-ghdl-yosys-plugin.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-darwin-arm64
+        artifacts: oss-cad-suite-build/darwin-arm64-ghdl-yosys-plugin.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   darwin-arm64-system-resources-min:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -3290,6 +3537,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3303,7 +3552,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=system-resources-min --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=system-resources-min --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-system-resources-min.tgz') !=
@@ -3323,6 +3572,8 @@ jobs:
   darwin-arm64-yosys-full:
     runs-on: ubuntu-latest
     needs:
+    - darwin-arm64-ghdl
+    - darwin-arm64-ghdl-yosys-plugin
     - darwin-arm64-system-resources-min
     - darwin-arm64-yosys
     steps:
@@ -3333,6 +3584,16 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download darwin-arm64-ghdl
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-arm64-ghdl-yosys-plugin
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-ghdl-yosys-plugin.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
     - name: Download darwin-arm64-system-resources-min
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3342,7 +3603,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=yosys-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=yosys-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3365,6 +3626,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3382,7 +3645,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=python3 --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=python3 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-python3.tgz') != ''
@@ -3406,6 +3669,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3431,7 +3696,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-generic --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-generic --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-generic.tgz') != ''
@@ -3461,6 +3726,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-nextpnr-generic
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-generic.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3474,7 +3741,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-generic-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-generic-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3499,6 +3766,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3528,7 +3797,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ice40 --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ice40 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-ice40.tgz') != ''
@@ -3558,6 +3827,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-nextpnr-ice40
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-ice40.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3571,7 +3842,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ice40-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ice40-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3595,6 +3866,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3624,7 +3897,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ecp5 --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ecp5 --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-ecp5.tgz') != ''
@@ -3654,6 +3927,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-nextpnr-ecp5
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-ecp5.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3667,7 +3942,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ecp5-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-ecp5-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3690,6 +3965,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3703,7 +3980,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=iverilog --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=iverilog --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-iverilog.tgz') != ''
@@ -3732,6 +4009,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-iverilog
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-iverilog.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3741,7 +4020,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=iverilog-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=iverilog-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3764,6 +4043,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3777,7 +4058,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=openfpgaloader --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=openfpgaloader --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-openfpgaloader.tgz') != ''
@@ -3806,6 +4087,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-openfpgaloader
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-openfpgaloader.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3815,7 +4098,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=openfpgaloader-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=openfpgaloader-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3839,6 +4122,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3852,7 +4137,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=prjtrellis --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=prjtrellis --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-prjtrellis.tgz') != ''
@@ -3881,6 +4166,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-prjtrellis
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-prjtrellis.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3890,7 +4177,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=prjtrellis-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=prjtrellis-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
@@ -3913,6 +4200,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Cache sources
       id: cache-sources
       uses: actions/cache@v5
@@ -3926,7 +4215,7 @@ jobs:
         \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
         fi\n"
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=icestorm --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=icestorm --rules=default,edacation
         --single --tar
     - uses: ncipollo/release-action@v1
       if: hashFiles('oss-cad-suite-build/darwin-arm64-icestorm.tgz') != ''
@@ -3955,6 +4244,8 @@ jobs:
     - uses: actions/checkout@v5
       with:
         submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
     - name: Download darwin-arm64-icestorm
       run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-icestorm.tgz"
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
@@ -3964,7 +4255,7 @@ jobs:
         --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
         | tar xvfz -
     - name: Build
-      run: ./builder.py build --arch=darwin-arm64 --target=icestorm-full --rules=default,../edacation
+      run: ./builder.py build --arch=darwin-arm64 --target=icestorm-full --rules=default,edacation
         --single
     - name: Tar build output
       env:
