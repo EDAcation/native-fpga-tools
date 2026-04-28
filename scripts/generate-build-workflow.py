@@ -6,6 +6,7 @@ import argparse
 import copy
 import os
 import re
+import shutil
 import subprocess
 from pathlib import Path
 from typing import cast
@@ -418,6 +419,16 @@ def main() -> None:
     if not arches or not targets:
         raise ValueError("At least one architecture and one target must be specified")
 
+    print("Injecting targets...")
+    rules_dest = shutil.copytree(
+        repo_root / "edacation",
+        builder_dir / "edacation",
+        dirs_exist_ok=True,
+    )
+    with (rules_dest / ".gitignore").open("w+") as f:
+        _ = f.write("*\n")
+
+    print("Generating CI for each architecture and target...")
     generated_job_sets: list[dict[str, dict[str, object]]] = []
     for arch in arches:
         for target in targets:
