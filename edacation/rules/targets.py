@@ -35,18 +35,18 @@ Target(
     ]
 )
 
-# FIXME: override ghdl to skip building for darwin-x64, whose source is currently missing in the upstream repository.
+# FIXME: override ghdl to skip building for darwin, which has some issues.
 Target(
 	name = 'ghdl-yosys-plugin',
 	sources = [ 'ghdl-yosys-plugin' ],
 	dependencies = [ 'ghdl', 'yosys' ],
-	arch = [ 'linux-x64', 'darwin-arm64' ],
+	arch = [ 'linux-x64' ],
 )
 
 Target(
 	name = 'ghdl',
 	sources = [ 'ghdl' ],
-	arch = [ 'linux-x64', 'darwin-arm64' ],
+	arch = [ 'linux-x64' ],
 )
 
 #### Nextpnr-generic ####
