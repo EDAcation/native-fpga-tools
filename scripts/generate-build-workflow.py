@@ -26,10 +26,12 @@ DEFAULT_TARGETS = [
     "nextpnr-generic",
     "nextpnr-ice40",
     "nextpnr-ecp5",
+    "nextpnr-himbaechel",
     "iverilog",
     "openfpgaloader",
     "prjtrellis",
     "icestorm",
+    "apicula",
 ]
 
 

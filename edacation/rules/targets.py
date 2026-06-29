@@ -117,6 +117,30 @@ Target(
     ]
 )
 
+#### Nextpnr-himbaechel ####
+
+Target(
+	name = 'nextpnr-himbaechel',
+	sources = [ 'nextpnr' ],
+	dependencies = [ 'python3', 'nextpnr-bba', 'apicula-bba', 'gatemate-bba', 'python3-native'],
+	patches = [ 'python3_package.sh' ],
+	resources = [ 'python3' ],
+)
+
+Target(
+    name='nextpnr-himbaechel-full',
+    branding='Nextpnr (Gowin / Himbaechel)',
+    top_package=True,
+    readme='README.md',
+    dependencies=[
+        'nextpnr-himbaechel',
+    ],
+    resources = [
+        'system-resources-min',
+    ]
+)
+
+
 #### iverilog ####
 
 Target(
@@ -171,6 +195,21 @@ Target(
     readme='README.md',
     dependencies=[
         'icestorm',
+    ],
+    resources = [
+        'system-resources-min'
+    ]
+)
+
+#### apicula ####
+
+Target(
+    name = 'apicula-full',
+    branding='Project Apicula',
+    top_package=True,
+    readme='README.md',
+    dependencies=[
+        'apicula',
     ],
     resources = [
         'system-resources-min'
