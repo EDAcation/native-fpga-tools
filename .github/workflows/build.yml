@@ -809,6 +809,257 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  linux-x64-apicula:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs:
+    - linux-x64-python3
+    - linux-x64-python3-native
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-apicula
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-x64 --target=apicula --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/linux-x64-apicula.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-linux-x64
+        artifacts: oss-cad-suite-build/linux-x64-apicula.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-x64-apicula-bba:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs:
+    - linux-x64-apicula
+    - linux-x64-python3-native
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-apicula-bba
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula-bba.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-x64-apicula
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-x64 --target=apicula-bba --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/linux-x64-apicula-bba.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-linux-x64
+        artifacts: oss-cad-suite-build/linux-x64-apicula-bba.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-x64-gatemate-bba:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: linux-x64-python3-native
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-gatemate-bba
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-gatemate-bba.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-x64 --target=gatemate-bba --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/linux-x64-gatemate-bba.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-linux-x64
+        artifacts: oss-cad-suite-build/linux-x64-gatemate-bba.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-x64-nextpnr-himbaechel:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs:
+    - linux-x64-apicula-bba
+    - linux-x64-gatemate-bba
+    - linux-x64-nextpnr-bba
+    - linux-x64-python3
+    - linux-x64-python3-native
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-nextpnr-himbaechel
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-himbaechel.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-x64-apicula-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-gatemate-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-gatemate-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-nextpnr-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-himbaechel --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/linux-x64-nextpnr-himbaechel.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-linux-x64
+        artifacts: oss-cad-suite-build/linux-x64-nextpnr-himbaechel.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-x64-nextpnr-himbaechel-full:
+    runs-on: ubuntu-latest
+    needs:
+    - linux-x64-nextpnr-himbaechel
+    - linux-x64-python3
+    - linux-x64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download linux-x64-nextpnr-himbaechel
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-himbaechel.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-x64 --target=nextpnr-himbaechel-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/linux-x64/nextpnr-himbaechel-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-himbaechel-full/.hash
+
+        tar -C ${tooldir}/nextpnr-himbaechel-full -czf linux-x64-nextpnr-himbaechel.tgz
+        .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-x64-nextpnr-himbaechel-full
+        path: oss-cad-suite-build/linux-x64-nextpnr-himbaechel.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   linux-x64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1080,6 +1331,51 @@ jobs:
       with:
         name: linux-x64-icestorm-full
         path: oss-cad-suite-build/linux-x64-icestorm.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-x64-apicula-full:
+    runs-on: ubuntu-latest
+    needs:
+    - linux-x64-apicula
+    - linux-x64-python3
+    - linux-x64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download linux-x64-apicula
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-x64 --target=apicula-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/linux-x64/apicula-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/apicula-full/.hash
+
+        tar -C ${tooldir}/apicula-full -czf linux-x64-apicula.tgz .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-x64-apicula-full
+        path: oss-cad-suite-build/linux-x64-apicula.tgz
     defaults:
       run:
         working-directory: oss-cad-suite-build
@@ -1543,6 +1839,111 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  linux-arm64-nextpnr-himbaechel:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: linux-arm64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-nextpnr-himbaechel
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-himbaechel.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-apicula-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-gatemate-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-gatemate-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-nextpnr-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-himbaechel --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/linux-arm64-nextpnr-himbaechel.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-linux-arm64
+        artifacts: oss-cad-suite-build/linux-arm64-nextpnr-himbaechel.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-arm64-nextpnr-himbaechel-full:
+    runs-on: ubuntu-latest
+    needs:
+    - linux-arm64-nextpnr-himbaechel
+    - linux-arm64-python3
+    - linux-arm64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download linux-arm64-nextpnr-himbaechel
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-nextpnr-himbaechel.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-arm64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-arm64 --target=nextpnr-himbaechel-full
+        --rules=default,edacation --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/linux-arm64/nextpnr-himbaechel-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-himbaechel-full/.hash
+
+        tar -C ${tooldir}/nextpnr-himbaechel-full -czf linux-arm64-nextpnr-himbaechel.tgz
+        .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm64-nextpnr-himbaechel-full
+        path: oss-cad-suite-build/linux-arm64-nextpnr-himbaechel.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   linux-arm64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -1853,6 +2254,98 @@ jobs:
       with:
         name: linux-arm64-icestorm-full
         path: oss-cad-suite-build/linux-arm64-icestorm.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-arm64-apicula:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: linux-arm64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-apicula
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-apicula.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-arm64 --target=apicula --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/linux-arm64-apicula.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-linux-arm64
+        artifacts: oss-cad-suite-build/linux-arm64-apicula.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  linux-arm64-apicula-full:
+    runs-on: ubuntu-latest
+    needs:
+    - linux-arm64-apicula
+    - linux-arm64-python3
+    - linux-arm64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download linux-arm64-apicula
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-apicula.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-arm64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-arm64/linux-arm64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=linux-arm64 --target=apicula-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/linux-arm64/apicula-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/apicula-full/.hash
+
+        tar -C ${tooldir}/apicula-full -czf linux-arm64-apicula.tgz .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-arm64-apicula-full
+        path: oss-cad-suite-build/linux-arm64-apicula.tgz
     defaults:
       run:
         working-directory: oss-cad-suite-build
@@ -2316,6 +2809,111 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  windows-x64-nextpnr-himbaechel:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: windows-x64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-nextpnr-himbaechel
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-himbaechel.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-x64-apicula-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-gatemate-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-gatemate-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-nextpnr-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download windows-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-himbaechel --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/windows-x64-nextpnr-himbaechel.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-windows-x64
+        artifacts: oss-cad-suite-build/windows-x64-nextpnr-himbaechel.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  windows-x64-nextpnr-himbaechel-full:
+    runs-on: ubuntu-latest
+    needs:
+    - windows-x64-nextpnr-himbaechel
+    - windows-x64-python3
+    - windows-x64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download windows-x64-nextpnr-himbaechel
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-nextpnr-himbaechel.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download windows-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download windows-x64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=windows-x64 --target=nextpnr-himbaechel-full
+        --rules=default,edacation --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/windows-x64/nextpnr-himbaechel-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-himbaechel-full/.hash
+
+        tar -C ${tooldir}/nextpnr-himbaechel-full -czf windows-x64-nextpnr-himbaechel.tgz
+        .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-x64-nextpnr-himbaechel-full
+        path: oss-cad-suite-build/windows-x64-nextpnr-himbaechel.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   windows-x64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -2626,6 +3224,98 @@ jobs:
       with:
         name: windows-x64-icestorm-full
         path: oss-cad-suite-build/windows-x64-icestorm.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  windows-x64-apicula:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: windows-x64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-apicula
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-apicula.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download windows-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=windows-x64 --target=apicula --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/windows-x64-apicula.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-windows-x64
+        artifacts: oss-cad-suite-build/windows-x64-apicula.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  windows-x64-apicula-full:
+    runs-on: ubuntu-latest
+    needs:
+    - windows-x64-apicula
+    - windows-x64-python3
+    - windows-x64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download windows-x64-apicula
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-apicula.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download windows-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download windows-x64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-windows-x64/windows-x64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=windows-x64 --target=apicula-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/windows-x64/apicula-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/apicula-full/.hash
+
+        tar -C ${tooldir}/apicula-full -czf windows-x64-apicula.tgz .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-x64-apicula-full
+        path: oss-cad-suite-build/windows-x64-apicula.tgz
     defaults:
       run:
         working-directory: oss-cad-suite-build
@@ -3089,6 +3779,111 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  darwin-x64-nextpnr-himbaechel:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: darwin-x64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-nextpnr-himbaechel
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-himbaechel.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download darwin-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-apicula-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-gatemate-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-gatemate-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-nextpnr-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-himbaechel --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/darwin-x64-nextpnr-himbaechel.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-darwin-x64
+        artifacts: oss-cad-suite-build/darwin-x64-nextpnr-himbaechel.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  darwin-x64-nextpnr-himbaechel-full:
+    runs-on: ubuntu-latest
+    needs:
+    - darwin-x64-nextpnr-himbaechel
+    - darwin-x64-python3
+    - darwin-x64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download darwin-x64-nextpnr-himbaechel
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-nextpnr-himbaechel.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-x64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-x64 --target=nextpnr-himbaechel-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/darwin-x64/nextpnr-himbaechel-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-himbaechel-full/.hash
+
+        tar -C ${tooldir}/nextpnr-himbaechel-full -czf darwin-x64-nextpnr-himbaechel.tgz
+        .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: darwin-x64-nextpnr-himbaechel-full
+        path: oss-cad-suite-build/darwin-x64-nextpnr-himbaechel.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   darwin-x64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -3398,6 +4193,98 @@ jobs:
       with:
         name: darwin-x64-icestorm-full
         path: oss-cad-suite-build/darwin-x64-icestorm.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  darwin-x64-apicula:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: darwin-x64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-apicula
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-apicula.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download darwin-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-x64 --target=apicula --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/darwin-x64-apicula.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-darwin-x64
+        artifacts: oss-cad-suite-build/darwin-x64-apicula.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  darwin-x64-apicula-full:
+    runs-on: ubuntu-latest
+    needs:
+    - darwin-x64-apicula
+    - darwin-x64-python3
+    - darwin-x64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download darwin-x64-apicula
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-apicula.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-x64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-x64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-x64/darwin-x64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-x64 --target=apicula-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/darwin-x64/apicula-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/apicula-full/.hash
+
+        tar -C ${tooldir}/apicula-full -czf darwin-x64-apicula.tgz .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: darwin-x64-apicula-full
+        path: oss-cad-suite-build/darwin-x64-apicula.tgz
     defaults:
       run:
         working-directory: oss-cad-suite-build
@@ -3861,6 +4748,112 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  darwin-arm64-nextpnr-himbaechel:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: darwin-arm64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-nextpnr-himbaechel
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-himbaechel.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download darwin-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-apicula-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-apicula-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-gatemate-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-gatemate-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-nextpnr-bba
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-nextpnr-bba.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-himbaechel --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/darwin-arm64-nextpnr-himbaechel.tgz') !=
+        ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-darwin-arm64
+        artifacts: oss-cad-suite-build/darwin-arm64-nextpnr-himbaechel.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  darwin-arm64-nextpnr-himbaechel-full:
+    runs-on: ubuntu-latest
+    needs:
+    - darwin-arm64-nextpnr-himbaechel
+    - darwin-arm64-python3
+    - darwin-arm64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download darwin-arm64-nextpnr-himbaechel
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-nextpnr-himbaechel.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-arm64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-arm64 --target=nextpnr-himbaechel-full
+        --rules=default,edacation --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/darwin-arm64/nextpnr-himbaechel-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/nextpnr-himbaechel-full/.hash
+
+        tar -C ${tooldir}/nextpnr-himbaechel-full -czf darwin-arm64-nextpnr-himbaechel.tgz
+        .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: darwin-arm64-nextpnr-himbaechel-full
+        path: oss-cad-suite-build/darwin-arm64-nextpnr-himbaechel.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   darwin-arm64-iverilog:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -4174,6 +5167,98 @@ jobs:
     defaults:
       run:
         working-directory: oss-cad-suite-build
+  darwin-arm64-apicula:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    needs: darwin-arm64-python3
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Cache sources
+      id: cache-sources
+      uses: actions/cache@v5
+      with:
+        path: oss-cad-suite-build/_sources
+        key: cache-sources-apicula
+    - name: Download previous build
+      run: "URL=\"https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-apicula.tgz\"\
+        \nif wget --spider \"${URL}\" 2>/dev/null; then\n    wget -qO- \"${URL}\"\
+        \ --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404\
+        \ | tar xvfz -\nelse\n    echo \"Previous version not found in bucket\"\n\
+        fi\n"
+    - name: Download darwin-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download linux-x64-python3-native
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-linux-x64/linux-x64-python3-native.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-arm64 --target=apicula --rules=default,edacation
+        --single --tar
+    - uses: ncipollo/release-action@v1
+      if: hashFiles('oss-cad-suite-build/darwin-arm64-apicula.tgz') != ''
+      with:
+        allowUpdates: true
+        prerelease: true
+        omitBody: true
+        omitBodyDuringUpdate: true
+        omitNameDuringUpdate: true
+        tag: bucket-darwin-arm64
+        artifacts: oss-cad-suite-build/darwin-arm64-apicula.tgz
+        token: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
+  darwin-arm64-apicula-full:
+    runs-on: ubuntu-latest
+    needs:
+    - darwin-arm64-apicula
+    - darwin-arm64-python3
+    - darwin-arm64-system-resources-min
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      working-directory: .
+    - uses: actions/checkout@v5
+      with:
+        submodules: true
+    - name: Inject targets
+      run: cp -r ../edacation .
+    - name: Download darwin-arm64-apicula
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-apicula.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-arm64-python3
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-python3.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Download darwin-arm64-system-resources-min
+      run: wget -qO- "https://github.com/${{ github.repository }}/releases/download/bucket-darwin-arm64/darwin-arm64-system-resources-min.tgz"
+        --retry-connrefused --read-timeout=20 --timeout=15 --retry-on-http-error=404
+        | tar xvfz -
+    - name: Build
+      run: ./builder.py build --arch=darwin-arm64 --target=apicula-full --rules=default,edacation
+        --single
+    - name: Tar build output
+      env:
+        tooldir: _outputs/darwin-arm64/apicula-full
+      run: 'cp ${tooldir}/.hash ${tooldir}/apicula-full/.hash
+
+        tar -C ${tooldir}/apicula-full -czf darwin-arm64-apicula.tgz .'
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: darwin-arm64-apicula-full
+        path: oss-cad-suite-build/darwin-arm64-apicula.tgz
+    defaults:
+      run:
+        working-directory: oss-cad-suite-build
   package:
     runs-on: ubuntu-latest
     needs:
@@ -4181,42 +5266,52 @@ jobs:
     - linux-x64-nextpnr-generic-full
     - linux-x64-nextpnr-ice40-full
     - linux-x64-nextpnr-ecp5-full
+    - linux-x64-nextpnr-himbaechel-full
     - linux-x64-iverilog-full
     - linux-x64-openfpgaloader-full
     - linux-x64-prjtrellis-full
     - linux-x64-icestorm-full
+    - linux-x64-apicula-full
     - linux-arm64-yosys-full
     - linux-arm64-nextpnr-generic-full
     - linux-arm64-nextpnr-ice40-full
     - linux-arm64-nextpnr-ecp5-full
+    - linux-arm64-nextpnr-himbaechel-full
     - linux-arm64-iverilog-full
     - linux-arm64-openfpgaloader-full
     - linux-arm64-prjtrellis-full
     - linux-arm64-icestorm-full
+    - linux-arm64-apicula-full
     - windows-x64-yosys-full
     - windows-x64-nextpnr-generic-full
     - windows-x64-nextpnr-ice40-full
     - windows-x64-nextpnr-ecp5-full
+    - windows-x64-nextpnr-himbaechel-full
     - windows-x64-iverilog-full
     - windows-x64-openfpgaloader-full
     - windows-x64-prjtrellis-full
     - windows-x64-icestorm-full
+    - windows-x64-apicula-full
     - darwin-x64-yosys-full
     - darwin-x64-nextpnr-generic-full
     - darwin-x64-nextpnr-ice40-full
     - darwin-x64-nextpnr-ecp5-full
+    - darwin-x64-nextpnr-himbaechel-full
     - darwin-x64-iverilog-full
     - darwin-x64-openfpgaloader-full
     - darwin-x64-prjtrellis-full
     - darwin-x64-icestorm-full
+    - darwin-x64-apicula-full
     - darwin-arm64-yosys-full
     - darwin-arm64-nextpnr-generic-full
     - darwin-arm64-nextpnr-ice40-full
     - darwin-arm64-nextpnr-ecp5-full
+    - darwin-arm64-nextpnr-himbaechel-full
     - darwin-arm64-iverilog-full
     - darwin-arm64-openfpgaloader-full
     - darwin-arm64-prjtrellis-full
     - darwin-arm64-icestorm-full
+    - darwin-arm64-apicula-full
     steps:
     - uses: actions/checkout@v4
       with:
