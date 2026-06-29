@@ -89,13 +89,21 @@ def run_ci_generation(
         f"--arch={arch}",
         f"--target={full_target}",
     ]
-    completed = subprocess.run(
-        cmd,
-        cwd=builder_dir,
-        check=True,
-        text=True,
-        capture_output=True,
-    )
+    try:
+        completed = subprocess.run(
+            cmd,
+            cwd=builder_dir,
+            check=True,
+            text=True,
+            capture_output=True,
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"Error running builder.py ci for {arch}/{full_target}: {e}")
+        print("Stdout:")
+        print(e.stdout)
+        print("Stderr:")
+        print(e.stderr)
+        raise
     return completed.stdout
 
 
